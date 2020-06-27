@@ -1,6 +1,0 @@
----
-- hosts: proxmox
-  gather_facts: False
-  tasks:
-    - import_role: Configure_Repositories
-      when: lookup('env', 'TKS_BP_R_CONFIGURE_REPOSITORIES') == 'true'
