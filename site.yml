@@ -2,29 +2,5 @@
 - hosts: proxmox
   gather_facts: False
   tasks:
-    - name: Disabling the enterprise Proxmox package repository.
-      file:
-        path: /etc/apt/sources.list.d/pve-enterprise.list
-        state: absent
-
-    - name: Remove the enterprise Proxmox package repository configuration.
-      apt_repository:
-        repo: "{{ item }}"
-        filename: pve-enterprise
-        state: absent
-      loop:
-        - "deb https://enterprise.proxmox.com/debian buster pve-enterprise"
-        - "deb https://enterprise.proxmox.com/debian/pve buster pve-enterprise"
-
-    - name: Adding the community Proxmox package repository configuration.
-      apt_repository:
-        repo: "{{ item }}"
-        filename: pve-community
-      loop:
-        - "deb http://ftp.us.debian.org/debian buster main contrib"
-        - "deb http://ftp.us.debian.org/debian buster-updates main contrib"
-        - "deb http://security.debian.org buster/updates main contrib"
-
-    - name: Updating the system.
-      apt:
-        state: latest
+    - import_role: Configure_Repositories
+      when: lookup('env', 'TKS_BP_R_CONFIGURE_REPOSITORIES') == 'true'
