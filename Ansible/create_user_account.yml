@@ -1,13 +1,13 @@
 ---
 - hosts: localhost
   gather_facts: False
-  vars: 
-    SSH_KEY: "{{ lookup('env', 'TKS_BP_V_PROXMOX_SSH_KEY') | default('~/.ssh/TKS') }}"
   tasks:
     - name: Generating an SSH keypair
       openssh_keypair:
-        path: "{{ SSH_KEY }}"
+        path: "{{ lookup('env', 'TKS_BP_V_PROXMOX_SSH_KEY') | default('~/.ssh/TKS') }}"
         type: ed25519
+      when:
+        - lookup('env', 'TKS_BP_R_CREATE_USER_ACCOUNT') == 'true'
 
 
 - hosts: proxmox
