@@ -1,0 +1,9 @@
+galaxy_info:
+  author: TJ Zimmerman
+  description: Generate a new SSH key, create a new user account, and add the ssh key to the account's authorized hosts file.
+  license: GPL-3.0-only
+  min_ansible_version: 2.9
+  platforms:
+  - name: Proxmox
+    versions:
+    - 6.2
