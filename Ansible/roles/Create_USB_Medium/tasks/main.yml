@@ -1,0 +1,12 @@
+---
+- name: Downloading the installation media.
+  get_url:
+    url: "{{ ISO_URL }}"
+    dest: /tmp/centos.iso
+
+- name: Creating the bootable USB Device.
+  become: true
+  command: dd if=/tmp/centos.iso of={{ USB_PATH }} bs=4M
+
+- name: Ensuring that the filesystem has synced.
+  command: sync

@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  gather_facts: False
+  tasks:
+    - import_role: 
+        name: Create_USB_Medium
+      vars:
+        ISO_URL: "{{ lookup('env', 'TKS_BM_V_PROXMOX_ISO_URL') }}"
+        USB_PATH: "{{ lookup('env', 'TKS_BM_V_USB_MOUNTPATH') }}"
