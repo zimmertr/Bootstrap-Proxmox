@@ -1,20 +1,22 @@
+
 # TKS-Bootstrap_Proxmox
+
+* [Summary](#Summary)
+* [How To Use](#How-To-Use)
+* [Instructions](#Instructions)
+   * [Install Proxmox VE](#Install-Proxmox-VE)
+   * [Create User Account](#Create-User-Account)
+   * [Configure Storage](#Configure-Storage)
 
 ## Summary
 
 `Bootstrap_Proxmox` sets up a Proxmox server for TKS by creating the necessary user accounts, installing package dependencies, and more. 
-
-[toc]
-
-<hr>
 
 ## How To Use
 
 This repository can be used on its own but it is intended to be used as a submodule of [TKS](https://github.com/zimmertr/TKS). Consider cloning that instead. TKS enable enthusiasts and administrators alike to easily provision highly available and production-ready Kubernetes clusters on Proxmox VE.
 
 Ansible is used to configure Proxmox. Logic is split into multiple roles which are often highly configurable and even optional. Configurations are applied to TKS using environment variables. For a list of supported environment variables, see the README document for each role. 
-
-<hr>
 
 ## Instructions
 
@@ -221,5 +223,3 @@ In many situations, a role may have optional or required configurable parameters
 1. The configuration hierarchy makes a lot more sense. The largest component of TKS is TKS itself -- the repository that aggregates everything. The smallest components are the Ansible roles and their individual tasks themselves. Default configuration values are therefore set at the bottom alongside the smallest components. And configuration overrides are performed at the highest level, alongside the biggest components. 
 2. In some situations, variables are used for more than just Ansible. Using environment variables allows you to manage variables for all tooling in a standardized way.
 3. Environment variables play better with CI/CD tooling. 
-
-## Instructions
