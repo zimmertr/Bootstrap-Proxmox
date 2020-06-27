@@ -1,0 +1,9 @@
+galaxy_info:
+  author: TJ Zimmerman
+  description: Configure a newly installed Proxmox VE server.
+  license: GPL-3.0-only
+  min_ansible_version: 2.9
+  platforms:
+  - name: Proxmox
+    versions:
+    - 6.2

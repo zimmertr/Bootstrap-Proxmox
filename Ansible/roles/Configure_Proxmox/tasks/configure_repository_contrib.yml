@@ -1,3 +1,4 @@
+---
 - name: Disabling the enterprise Proxmox package repository.
   file:
     path: /etc/apt/sources.list.d/pve-enterprise.list
