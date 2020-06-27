@@ -10,12 +10,12 @@ This repository is a submodule of TKS. It can be used on its own, but is intende
 
 All of the required roles are automatically included in the `site.yml` playbook according to whether or not specific environment variables are set to `true` at runtime. Some roles and scripts are not meant to be run with Ansible, have unique instructions, and do not require the use of environment variables. They are indicated accordingly.
 
-| Role                          | Description                                            | Environment Variable                   |
-| ----------------------------- | ------------------------------------------------------ | -------------------------------------- |
-| Create_USB_Medium             | Create a bootable USB Flash Drive                      | N/A                                    |
-| Create_SSH_Key                | Generate a new SSH Key                                 | N/A                                    |
-| Create_User_Account           | Create an administrative user account                  | `TKS_BP_R_CREATE_USER_ACCOUNT`           |
-| Install_SSH_Key               | Copy an SSH Key to the Proxmox server                  | N/A                                    |
+| Role                          | Description                                            | Environment Variable                     |
+| ----------------------------- | ------------------------------------------------------ | ---------------------------------------- |
+| Create_USB_Medium             | Create a bootable USB Flash Drive                      | N/A                                      |
+| Create_User_Account           | Create an administrative user account and SSH key      | `TKS_BP_R_CREATE_USER_ACCOUNT`           |
+| Configure_Proxmox             | Configures your Proxmox server                         | `TKS_BP_R_CONFIGURE_PROXMOX`             |
+|                               |                                                        |                                          |
 | Install_Packages              | Install qualify of life packages and update the system | `TKS_BP_R_INSTALL_PACKAGES`              |
 | Install_ZSH                   | Install & configure ZSH                                | `TKS_BP_R_INSTALL_ZSH`                   |
 | Install_Sanoid                | Install Sanoid for ZFS Snapshotting                    | `TKS_BP_R_INSTALL_SANOID`                |
