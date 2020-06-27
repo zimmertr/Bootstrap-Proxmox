@@ -1,7 +1,6 @@
 - name: Creating an administrative user account
   user:
     name: "{{ USER_ACCOUNT }}"
-    group: 
     shell: /bin/bash
 
 - name: Adding the SSH keypair to the user's authorized_keys file.
