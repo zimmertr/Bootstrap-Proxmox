@@ -12,7 +12,7 @@ Tasks
 | `configure_unattended_upgrades.yml` | Installs and configures Unattended Upgrades.                 |
 | `configure_zfs.yml`                 | Configures ZFS Memory Limitations, Swappiness, email notifications, etc. |
 | `install_base_packages.yml`         | Installs and configures my desired base packages.            |
-| `install_msmtp_relay.yml`           | Installs and configures an `msmtp` relay.                    |
+| `install_postfix_relay.yml`         | Installs and configures a Postfix relay.                     |
 | `main.yml`                          | The main task that is executed automatically by the role. Calls other tasks depending on desired state. |
 
 
@@ -22,11 +22,11 @@ Role Variables
 
 | Variable                             | Description                                               | Has Default | Example           |
 | ------------------------------------ | --------------------------------------------------------- | ----------- | ----------------- |
-| `TKS_BP_V_MSMTP_SERVER`              | Remote SMTP Server                                        | Yes         | `smtp.gmail.com`  |
-| `TKS_BP_V_MSMTP_PORT`                | Remote SMTP Port                                          | Yes         | `587`             |
-| `TKS_BP_V_MSMTP_TLS`                 | Remote SMTP Server TLS Support                            | Yes         | `true`            |
-| `TKS_BP_V_MSMTP_EMAIL`               | Remote SMTP Server Username                               | No          | `email@gmail.com` |
-| `TKS_BP_V_MSMTP_PASSWORD`            | Remote SMTP Server Password                               | No          | `PASSWORD`        |
+| `TKS_BP_V_POSTFIX_SERVER`            | Remote SMTP Server                                        | Yes         | `smtp.gmail.com`  |
+| `TKS_BP_V_POSTFIX_PORT`              | Remote SMTP Port                                          | Yes         | `587`             |
+| `TKS_BP_V_POSTFIX_TLS`               | Remote SMTP Server TLS Support                            | Yes         | `yes`             |
+| `TKS_BP_V_POSTFIX_EMAIL`             | Remote SMTP Server Username                               | No          | `email@gmail.com` |
+| `TKS_BP_V_POSTFIX_PASSWORD`          | Remote SMTP Server Password                               | No          | `PASSWORD`        |
 | `TKS_BP_V_UPGRADES_NOTIFY`           | Enable notifications for unattended upgrades              | Yes         | `true`            |
 | `TKS_BP_V_UPGRADES_NOTIFY_ON_ERROR`  | Only send notifications for upgrades on error             | Yes         | `false`           |
 | `TKS_BP_V_UPGRADES_EMAIL`            | The destination email address for unattended upgrades     | No          | `email@gmail.com` |

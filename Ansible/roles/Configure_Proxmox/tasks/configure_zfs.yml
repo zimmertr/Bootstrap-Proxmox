@@ -1,0 +1,24 @@
+---
+# Commenting out until I figure out a way to dynamically set this 
+# Will probably involve:
+# https://stackoverflow.com/questions/38033996/ansible-and-hardware-checks
+# https://www.mydailytutorials.com/ansible-arithmetic-operations/
+# - name: Limiting the ZFS Memory Usage
+#   lineinfile:
+#     create: yes
+#     path: /etc/modprobe.d/zfs.conf
+#     line: options zfs zfs_arc_max={{ VAR_ZFS_ARC_MAX }}
+
+- name: Configuring ZED to send notifications regardless of drive health
+  lineinfile:
+    path: /etc/zfs/zed.d/zed.rc
+    line: ZED_NOTIFY_VERBOSE=1
+  notify:
+    - Restarting and enabling ZED
+
+- name: Limiting the amount of System Swappiness
+  sysctl:
+    name: vm.swappiness
+    value: '{{ VAR_ZFS_SWAPPINESS }}'
+    state: present
+

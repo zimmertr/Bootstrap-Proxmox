@@ -17,3 +17,12 @@
 - name: Updating package repositories
   apt:
     update_cache: yes
+
+- name: Restarting postfix
+  command: postfix reload
+
+- name: Restarting and enabling ZED
+  systemd:
+    name: zfs-zed
+    enabled: yes
+    state: restarted

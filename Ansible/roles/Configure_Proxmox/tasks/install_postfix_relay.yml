@@ -1,0 +1,52 @@
+---
+- name: Installing Postfix & the SMTP Authentication Library
+  apt: 
+    state: present
+    name:
+      - postfix
+      - libsasl2-modules
+      - ca-certificates
+      - bsd-mailx
+
+- name: Creating a password file for Postfix
+  lineinfile:
+    path: /etc/postfix/sasl_passwd
+    line: '{{ VAR_POSTFIX_SERVER }} {{ VAR_POSTFIX_EMAIL }}:{{ VAR_POSTFIX_PASSWORD }}'
+    create: yes
+  when: 
+    - VAR_POSTFIX_SERVER != ""
+    - VAR_POSTFIX_EMAIL != ""
+    - VAR_POSTFIX_PASSWORD != ""
+
+- name: Creating a database from the password file
+  command: postmap hash:/etc/postfix/sasl_passwd
+
+- name: Setting the permissions for the passwd file.
+  file: 
+    path: /etc/postfix/sasl_passwd
+    mode: 600
+
+- name: Removing unused relayhost configuration from Postfix.
+  lineinfile:
+    path: /etc/postfix/main.cf
+    line: "relayhost ="
+    state: absent
+
+- name: Configuring Postfix
+  blockinfile:
+    path: /etc/postfix/main.cf
+    block: |
+      relayhost = {{ VAR_POSTFIX_SERVER }}:{{ VAR_POSTFIX_PORT }}
+      smtp_use_tls = {{ VAR_POSTFIX_TLS }}
+      smtp_sasl_auth_enable = yes
+      smtp_sasl_security_options =
+      smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+      smtp_tls_CAfile = /etc/ssl/certs/Entrust_Root_Certification_Authority.pem
+      smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_tls_session_cache
+      smtp_tls_session_cache_timeout = 3600s
+  when: 
+    - VAR_POSTFIX_SERVER != ""
+    - VAR_POSTFIX_PORT != ""
+    - VAR_POSTFIX_TLS == "yes" or VAR_POSTFIX_TLS == "no"
+  notify:
+    - Restarting postfix
