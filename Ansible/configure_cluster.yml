@@ -1,0 +1,72 @@
+---
+- hosts: localhost
+  gather_facts: False
+  vars:
+    MASTER_PASSWORD: "{{ lookup('env', 'TKS_BP_V_PROXMOX_MASTER_PASSWORD') }}"
+  tasks:
+    # This check should probably be removed. Single node clusters are a valid thing in Proxmox. 
+    - fail:
+        msg: "The `nodes` group in Ansible inventory is misconfigured. At least one node is required."
+      when: >
+        groups["nodes"] is not defined or
+        groups["nodes"] | length < 1
+
+    - fail:
+        msg: "Master group in Ansible inventory misconfigured. Only one host supported."
+      when: >
+        groups["master"] is not defined or 
+        groups["master"] | length > 1
+
+    - fail:
+        msg: "Please export TKS_BP_V_PROXMOX_MASTER_PASSWORD environment variable"
+      when: MASTER_PASSWORD == ""
+      no_log: true # Prevents password from being logged
+
+
+- hosts: master
+  become: true
+  gather_facts: False
+  vars:
+    CLUSTER_NAME: "{{ lookup('env', 'TKS_BP_V_PROXMOX_CLUSTER_NAME') | default('TKS') }}"
+  tasks:
+    - name: Evaluating whether or not the node is already a member of a cluster.
+      command: pvecm status
+      register: cluster_result
+      ignore_errors: yes
+
+    - name: Forming a cluster on the master
+      command: pvecm create {{ CLUSTER_NAME }}
+      when: cluster_result.rc == 2
+
+
+- hosts: master # Gather facts about master group.
+- hosts: nodes
+  become: true
+  gather_facts: False
+  vars:
+    CLUSTER_NAME: "{{ lookup('env', 'TKS_BP_V_PROXMOX_CLUSTER_NAME') | default('TKS') }}"
+    MASTER_PASSWORD: "{{ lookup('env', 'TKS_BP_V_PROXMOX_MASTER_PASSWORD') }}"
+  tasks:   
+    - name: Evaluating whether or not the node is already a member of a cluster.
+      command: pvecm status
+      register: cluster_result
+      ignore_errors: yes
+
+    - name: Joining the node to the cluster
+      when: cluster_result.rc == 2  
+      block:       
+        - apt:
+            name: python-pip
+          when: cluster_result.rc == 2
+
+        - pip:
+            name: pexpect
+
+        - expect:
+            command: pvecm add "{{ hostvars[item]['ansible_fqdn'] }}"
+            responses:
+              "Please enter superuser*": "{{ MASTER_PASSWORD }}"
+              "Are you sure*": "yes"
+          with_items:
+            - "{{ groups['master'][0] }}"
+          no_log: true # Prevents password from being logged

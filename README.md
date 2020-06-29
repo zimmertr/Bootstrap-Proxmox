@@ -5,6 +5,7 @@
 * [Instructions](#Instructions)
    * [Install Proxmox VE](#Install-Proxmox-VE)
    * [Create User Account](#Create-User-Account)
+   * [Configure Clustering](#Configure-Clustering)
    * [Configure Storage](#Configure-Storage)
    * [Configure Proxmox](#Configure-Proxmox)
 
@@ -90,6 +91,35 @@ Now that Proxmox has been installed, it's time to set up a user account for Ansi
    export ANSIBLE_ASK_PASS=false
    export ANSIBLE_PRIVATE_KEY_FILE=~/.ssh/sol.milkyway
    ```
+
+<hr>
+
+### Configure Clustering
+
+Your environment may or may not include multiple physical nodes. as a result, this step is **optional**. In order to form a cluster, you must have at least one master and node present in your inventory file under the groups `master` and `nodes`. Furthermore, only a single master can be in your inventory. Lastly, as a limitation invoked by Proxmox, your node can not have any workloads currently running on it.
+
+Configure your shell so that it does not commit entries to history that start with a whitespace. Then export the required environment variables and the Ansible Playbook.
+
+```bash
+export HISTCONTROL=ignoreboth
+export TKS_BP_V_PROXMOX_CLUSTER_NAME=TKS
+ export TKS_BP_V_PROXMOX_MASTER_PASSWORD=YOURPASSWORD
+
+ansible-playbook -i inventory.yml ../TKS-Bootstrap_Proxmox/Ansible/configure_cluster.yml
+unset $TKS_BP_V_PROXMOX_MASTER_PASSWORD
+```
+
+Should something go wrong, or you wish you undo your clustering, you can do so with the following commands:
+
+```bash
+systemctl stop pve-cluster
+systemctl stop corosync
+pmxcfs -l
+rm /etc/pve/corosync.conf 
+rm /etc/corosync/*
+killall pmxcfs
+systemctl start pve-cluster
+```
 
 <hr>
 
