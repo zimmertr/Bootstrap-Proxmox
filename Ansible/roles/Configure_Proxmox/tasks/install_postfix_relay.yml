@@ -20,6 +20,8 @@
 
 - name: Creating a database from the password file
   command: postmap hash:/etc/postfix/sasl_passwd
+  notify:
+    - Restarting postfix
 
 - name: Setting the permissions for the passwd file.
   file: 

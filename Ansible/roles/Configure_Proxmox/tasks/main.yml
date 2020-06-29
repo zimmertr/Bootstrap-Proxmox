@@ -11,5 +11,8 @@
 - import_tasks: configure_unattended_upgrades.yml
   when: CONFIGURE_UNATTENDED_UPGRADES == "true"
 
+- import_tasks: configure_system.yml
+  when: CONFIGURE_SYSTEM == "true"
+
 - import_tasks: configure_zfs.yml
   when: CONFIGURE_ZFS == "true"
