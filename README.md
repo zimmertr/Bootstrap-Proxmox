@@ -105,7 +105,7 @@ export HISTCONTROL=ignoreboth
 export TKS_BP_V_PROXMOX_CLUSTER_NAME=TKS
  export TKS_BP_V_PROXMOX_MASTER_PASSWORD=YOURPASSWORD
 
-ansible-playbook -i inventory.yml ../TKS-Bootstrap_Proxmox/Ansible/configure_cluster.yml
+ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/configure_cluster.yml
 unset $TKS_BP_V_PROXMOX_MASTER_PASSWORD
 ```
 
