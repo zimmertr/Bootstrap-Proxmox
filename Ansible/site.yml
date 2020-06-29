@@ -1,0 +1,16 @@
+---
+- hosts: proxmox
+  become: true
+  gather_facts: false
+  tasks:
+    - import_role: 
+        name: Configure_Proxmox
+      vars:     
+        CONFIGURE_REPOSITORIES: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_REPOSITORIES') }}"
+        CONFIGURE_NTP_SERVERS: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_NTP_SERVERS') }}"        
+        CONFIGURE_UNATTENDED_UPGRADES: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES') }}"
+        CONFIGURE_ZED: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_ZED') }}"
+        INSTALL_PACKAGES: "{{ lookup('env', 'TKS_BP_T_INSTALL_PACKAGES') }}"
+        INSTALL_SANOID: "{{ lookup('env', 'TKS_BP_T_INSTALL_SANOID') }}" 
+        INSTALL_POSTFIX: "{{ lookup('env', 'TKS_BP_T_INSTALL_POSTFIX') }}"    
+        INSTALL_ZSH: "{{ lookup('env', 'TKS_BP_T_INSTALL_ZSH') }}"        

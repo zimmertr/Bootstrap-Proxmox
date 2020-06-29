@@ -1,0 +1,9 @@
+---
+- name: Detecting system hardware sensors
+  command: sensors-detect --auto
+
+- name: Restarting lm-sensors
+  systemd:
+    name: lm-sensors
+    state: restarted
+    enabled: yes

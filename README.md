@@ -77,7 +77,7 @@ Now that Proxmox has been installed, it's time to set up a user account for Ansi
 3. *Create a new SSH Key and User Account for Ansible to use*
 
    ```bash
-   export TKS_BP_R_CREATE_USER_ACCOUNT=true
+   export TKS_BP_T_CREATE_USER_ACCOUNT=true
    export TKS_BP_V_PROXMOX_SSH_KEY='~/.ssh/sol.milkyway'
    export TKS_BP_V_PROXMOX_USER_NAME=tj    
    
@@ -198,6 +198,18 @@ Our goal here is to provide our hypervisor with storage to use for three primary
 
 ### Configure Proxmox
 
-Now that storage has been set up, we can proceed with configuring Proxmox for TKS. 
+Now that storage has been set up, we can proceed with configuring Proxmox for TKS. Which configurations are applied and their parameters are also managed with environment variables.
+
+| Variable                                 | Description                                                  | Example Value |
+| ---------------------------------------- | ------------------------------------------------------------ | ------------- |
+| `TKS_BP_T_CONFIGURE_REPOSITORIES`        | Use the Contributor repositories for packages                | `true`        |
+| `TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES` | Automatically manage package updates                         | `true`        |
+| `TKS_BP_T_CONFIGURE_ZED`                 | Send email notifications pertaining to ZFS-related events    | `true`        |
+| `TKS_BP_T_INSTALL_PACKAGES`              | Install a list of qualify-of-life packages for standard system administration | `true`        |
+| `TKS_BP_T_INSTALL_SANOID`                | Configure automatic ZFS Snapshot creation and deletion       | `true`        |
+| `TKS_BP_T_INSTALL_POSTFIX`               | Install and configure an SMTP relay for email notifications  | `true`        |
+| `TKS_BP_T_INSTALL_ZSH`                   | Install and configure ZSH as the default user shell          | `true`        |
+
+   
 
 <hr>

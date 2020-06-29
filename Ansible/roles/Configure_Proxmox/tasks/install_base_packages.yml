@@ -1,0 +1,29 @@
+---
+- name: Upgrading the system
+  apt:
+    upgrade: yes
+
+- name: Installing base packages
+  apt: 
+    state: present
+    name:
+    - bash-completion
+    - bmon
+    - dnsutils
+    - fio
+    - git
+    - hdparm
+    - htop
+    - lm-sensors
+    - lsof
+    - net-tools
+    - nmap
+    - screen
+    - tree
+    - vim
+    - wget
+    - sysstat
+    - iotop
+  notify:
+    - Detecting system hardware sensors
+    - Restarting lm-sensors

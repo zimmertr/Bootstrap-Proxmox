@@ -1,0 +1,6 @@
+---
+- import_tasks: configure_repository_contrib.yml
+  when: CONFIGURE_REPOSITORIES == "true"
+
+- import_tasks: install_base_packages.yml
+  when: INSTALL_PACKAGES == "true"
