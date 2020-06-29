@@ -1,7 +1,4 @@
 ---
-- debug:
-    msg: "{{ CONFIGURE_UNATTENDED_UPGRADES }}"
-
 - name: Installing an email and smtp relay client
   apt: 
     state: present
@@ -22,6 +19,8 @@
     - VAR_UPGRADES_EMAIL != ""
     - VAR_UPGRADES_NOTIFY != ""
     - VAR_UPGRADES_NOTIFY == "true"
+  notify:
+    - Restarting unattended-upgrades
 
 - name: Configuring when unattended upgrade notifications are sent
   lineinfile:
@@ -34,6 +33,8 @@
     - VAR_UPGRADES_NOTIFY == "true"
     - VAR_UPGRADES_NOTIFY_ON_ERROR != ""
     - VAR_UPGRADES_NOTIFY_ON_ERROR == "true" or VAR_UPGRADES_NOTIFY_ON_ERROR == "false"
+  notify:
+    - Restarting unattended-upgrades
 
 - name: Restricting updates to only occur during a graceful shutdown
   lineinfile:
@@ -44,6 +45,8 @@
   when: 
     - VAR_UPGRADES_ON_SHUTDOWN != ""
     - VAR_UPGRADES_ON_SHUTDOWN == "true"
+  notify:
+    - Restarting unattended-upgrades
 
 - name: Configuring unattended upgrades to remove unused kernel packages
   lineinfile:
@@ -54,6 +57,8 @@
   when: 
     - VAR_UPGRADES_UNUSED_K_PAC != ""
     - VAR_UPGRADES_UNUSED_K_PAC == "true"
+  notify:
+    - Restarting unattended-upgrades
 
 - name: Configuring unattended upgrades to remove unused package dependencies
   lineinfile:
@@ -64,6 +69,8 @@
   when: 
     - VAR_UPGRADES_UNUSED_DEP != ""
     - VAR_UPGRADES_UNUSED_DEP == "true"
+  notify:
+    - Restarting unattended-upgrades
 
 - name: Configuring unattended upgrades to automatically reboot the node
   lineinfile:
@@ -74,6 +81,8 @@
   when: 
     - VAR_UPGRADES_AUTO_REBOOT != ""
     - VAR_UPGRADES_AUTO_REBOOT == "true"
+  notify:
+    - Restarting unattended-upgrades
 
 - name: Configuring unattended upgrades to automatically reboot the node specifically at {{ VAR_UPGRADES_AUTO_REBOOT_TIME }}
   lineinfile:
@@ -85,6 +94,8 @@
     - VAR_UPGRADES_AUTO_REBOOT != ""
     - VAR_UPGRADES_AUTO_REBOOT == "true"
     - VAR_UPGRADES_AUTO_REBOOT_TIME != ""
+  notify:
+    - Restarting unattended-upgrades
 
 - name: Configuring unattended upgrades to log to syslog.
   lineinfile:
@@ -95,3 +106,5 @@
   when: 
     - VAR_UPGRADES_LOG_SYSLOG != ""
     - VAR_UPGRADES_LOG_SYSLOG == "true"
+  notify:
+    - Restarting unattended-upgrades

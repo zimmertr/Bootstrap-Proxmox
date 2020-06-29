@@ -112,7 +112,7 @@ Now that we can use Ansible freely, we can use the `site.yml` playbook to set up
 
 For example, if you wanted to switch over to the contributor repositories, install my preferred qualify of life packages, and set up unattended upgrades you might:
 
-1. Configure your Ansible client:
+1. *Configure your Ansible client:*
 
    ```bash
    export ANSIBLE_REMOTE_USER="tj"
@@ -120,7 +120,7 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export ANSIBLE_PRIVATE_KEY_FILE="~/.ssh/sol.milkyway"
    ```
 
-2. Export the variables indicating which configurations you wish to apply: 
+2. *Export the variables indicating which configurations you wish to apply:* 
 
    ```bash
    export TKS_BP_T_CONFIGURE_REPOSITORIES=true
@@ -128,7 +128,7 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES=true
    ```
 
-3. Define some variables to configure the `msmtp` relay client. Be mindful to not leave your password in your shell history:
+3. *Define some variables to configure the `msmtp` relay client. Be mindful to not leave your password in your shell history:*
 
    ```bash
    export HISTCONTROL=ignoreboth
@@ -136,7 +136,7 @@ For example, if you wanted to switch over to the contributor repositories, insta
     export TKS_BP_V_MSMTP_PASSWORD="YOURPASSWORD"
    ```
 
-4. Define some variables to configure Unattended Upgrades:
+4. *Define some variables to configure Unattended Upgrades:*
 
    ```bash
    export TKS_BP_V_UPGRADES_NOTIFY=true
@@ -145,7 +145,7 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export TKS_BP_V_UPGRADES_LOG_SYSLOG=true
    ```
 
-5. Apply the configurations to Proxmox:
+5. *Apply the configurations to Proxmox:*
 
    ```bash
    ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml

@@ -7,3 +7,13 @@
     name: lm-sensors
     state: restarted
     enabled: yes
+
+- name: Restarting unattended-upgrades
+  systemd:
+    name: unattended-upgrades
+    state: restarted
+    enabled: yes
+
+- name: Updating package repositories
+  apt:
+    update_cache: yes

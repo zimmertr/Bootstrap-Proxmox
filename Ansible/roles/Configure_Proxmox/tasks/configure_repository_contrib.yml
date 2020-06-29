@@ -21,3 +21,5 @@
     - "deb http://ftp.us.debian.org/debian buster main contrib"
     - "deb http://ftp.us.debian.org/debian buster-updates main contrib"
     - "deb http://security.debian.org buster/updates main contrib"
+  notify:
+    - Updating package repositories

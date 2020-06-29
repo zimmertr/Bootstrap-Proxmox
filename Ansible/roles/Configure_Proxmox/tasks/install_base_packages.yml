@@ -7,23 +7,28 @@
   apt: 
     state: present
     name:
-    - bash-completion
-    - bmon
-    - dnsutils
-    - fio
-    - git
-    - hdparm
-    - htop
-    - lm-sensors
-    - lsof
-    - net-tools
-    - nmap
-    - screen
-    - tree
-    - vim
-    - wget
-    - sysstat
-    - iotop
+      - bash-completion
+      - bmon
+      - dnsutils
+      - fio
+      - git
+      - hdparm
+      - htop
+      - lsof
+      - net-tools
+      - nmap
+      - screen
+      - tree
+      - vim
+      - wget
+      - sysstat
+      - iotop
+
+- name: Installing lm-sensors
+  apt:
+    state: present
+    name:
+        - lm-sensors
   notify:
     - Detecting system hardware sensors
     - Restarting lm-sensors
