@@ -58,7 +58,7 @@ In my case, I have both a Dell server with IDRAC and a Mac Pro that requires a b
 
 ### Create a new user account
 
-Now that Proxmox has been installed, it's time to set up a user account for Ansible to use. We'll also be creating an SSH key and adding it to the `authorized_keys` file for that user. 
+Now that Proxmox has been installed, it's time to set up a user account for Ansible to use. We'll also be creating an SSH key and adding it to the `authorized_keys` file for that user as well as installing `sudo` and making them a sudoer. 
 
 1. *Export the `ANSIBLE_REMOTE_USER` and `ANSIBLE_ASK_PASS` environment variables. This is necessary at first since Proxmox does not yet have an SSH key.*
 
@@ -80,7 +80,7 @@ Now that Proxmox has been installed, it's time to set up a user account for Ansi
    export TKS_BP_V_PROXMOX_SSH_KEY='~/.ssh/sol.milkyway'
    export TKS_BP_V_PROXMOX_USER_NAME=tj    
    
-   ansible-playbook -i inventory.ini TKS-Bootstrap_Proxmox/Ansible/create_user_account.yml
+   ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/create_user_account.yml
    ```
 
 4. *Reconfigure Ansible to use SSH keys for authentication as well as your new user account.*
@@ -92,6 +92,7 @@ Now that Proxmox has been installed, it's time to set up a user account for Ansi
    ```
 
 <hr>
+
 ### Configure Storage
 
 Storage is a delicate component of any environment and there is a larger risk for disaster when applying automation to it as a result. Further complicating this, is that storage is configured differently in almost every environment. As a result, I have decided to leave this portion of TKS as a manual process. 
