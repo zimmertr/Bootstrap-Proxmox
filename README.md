@@ -5,9 +5,9 @@
 * [Instructions](#Instructions)
    * [Install Proxmox VE](#Install-Proxmox-VE)
    * [Create User Account](#Create-User-Account)
+   * [Configure Proxmox](#Configure-Proxmox)
    * [Configure Clustering](#Configure-Clustering)
    * [Configure Storage](#Configure-Storage)
-   * [Configure Proxmox](#Configure-Proxmox)
 
 ## Summary
 
@@ -57,6 +57,7 @@ In my case, I have both a Dell server with IDRAC and a Mac Pro that requires a b
 
 <hr>
 
+
 ### Create a new user account
 
 Now that Proxmox has been installed, it's time to set up a user account for Ansible to use. We'll also be creating an SSH key and adding it to the `authorized_keys` file for that user as well as installing `sudo` and making them a sudoer. 
@@ -77,7 +78,7 @@ Now that Proxmox has been installed, it's time to set up a user account for Ansi
 3. *Create a new SSH Key and User Account for Ansible to use*
 
    ```bash
-   export TKS_BP_T_CREATE_USER_ACCOUNT=true
+   export TKS_BP_R_CREATE_USER_ACCOUNT=true
    export TKS_BP_V_PROXMOX_SSH_KEY='~/.ssh/sol.milkyway'
    export TKS_BP_V_PROXMOX_USER_NAME=tj    
    
@@ -93,6 +94,34 @@ Now that Proxmox has been installed, it's time to set up a user account for Ansi
    ```
 
 <hr>
+
+
+### Configure Proxmox
+
+Now that we can use Ansible freely, we can use the `site.yml` playbook to set up most things. By default, no configuration changes will be applied unless the appropriate environment variable below is set to `true`. Many tasks support further configuration options, see the [README](./Ansible/roles/Configure_Proxmox/README.md) for the `Configure_Proxmox` role examples. 
+
+| Variable                                 | Description                                                  | Example Value |
+| ---------------------------------------- | ------------------------------------------------------------ | ------------- |
+| `TKS_BP_T_CONFIGURE_REPOSITORIES`        | Use the [Contributor repositories](https://pve.proxmox.com/wiki/Package_Repositories) for packages | `true`        |
+| `TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES` | Automatically manage [package updates](https://wiki.debian.org/UnattendedUpgrades) | `true`        |
+| `TKS_BP_T_CONFIGURE_ZED`                 | Send [email notifications](https://pve.proxmox.com/wiki/ZFS_on_Linux) pertaining to ZFS-related events | `true`        |
+| `TKS_BP_T_INSTALL_PACKAGES`              | Install a list of qualify-of-life packages for standard system administration | `true`        |
+| `TKS_BP_T_INSTALL_SANOID`                | Install [Sanoid](https://github.com/jimsalterjrs/sanoid) and configure automatic ZFS Snapshot management | `true`        |
+| `TKS_BP_T_INSTALL_MSMTP_RELAY            | Install and configure an [msmtp](https://marlam.de/msmtp/) relay for email notifications | `true`        |
+| `TKS_BP_T_INSTALL_ZSH`                   | Install and configure [ZSH](https://www.zsh.org/) as the default user shell | `true`        |
+
+For example, if you just wanted to switch over to the contributor repositories and install my preferred qualify of life packages:
+
+```bash
+export TKS_BP_R_CONFIGURE_REPOSITORIES=true
+export TKS_BP_R_INSTALL_PACKAGES=true
+
+ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml
+```
+
+<hr>
+
+
 
 ### Configure Clustering
 
@@ -122,6 +151,7 @@ systemctl start pve-cluster
 ```
 
 <hr>
+
 
 ### Configure Storage
 
@@ -193,23 +223,5 @@ Our goal here is to provide our hypervisor with storage to use for three primary
    
    df -h
    ```
-
-<hr>
-
-### Configure Proxmox
-
-Now that storage has been set up, we can proceed with configuring Proxmox for TKS. Which configurations are applied and their parameters are also managed with environment variables.
-
-| Variable                                 | Description                                                  | Example Value |
-| ---------------------------------------- | ------------------------------------------------------------ | ------------- |
-| `TKS_BP_T_CONFIGURE_REPOSITORIES`        | Use the Contributor repositories for packages                | `true`        |
-| `TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES` | Automatically manage package updates                         | `true`        |
-| `TKS_BP_T_CONFIGURE_ZED`                 | Send email notifications pertaining to ZFS-related events    | `true`        |
-| `TKS_BP_T_INSTALL_PACKAGES`              | Install a list of qualify-of-life packages for standard system administration | `true`        |
-| `TKS_BP_T_INSTALL_SANOID`                | Configure automatic ZFS Snapshot creation and deletion       | `true`        |
-| `TKS_BP_T_INSTALL_POSTFIX`               | Install and configure an SMTP relay for email notifications  | `true`        |
-| `TKS_BP_T_INSTALL_ZSH`                   | Install and configure ZSH as the default user shell          | `true`        |
-
-   
 
 <hr>
