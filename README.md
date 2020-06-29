@@ -104,13 +104,14 @@ Now that we can use Ansible freely, we can use the `site.yml` playbook to set up
 | ---------------------------------------- | ------------------------------------------------------------ | ------------- |
 | `TKS_BP_T_CONFIGURE_REPOSITORIES`        | Use the [Contributor repositories](https://pve.proxmox.com/wiki/Package_Repositories) for packages | `true`        |
 | `TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES` | Automatically manage [package updates](https://wiki.debian.org/UnattendedUpgrades) | `true`        |
+| `TKS_BP_T_CONFIGURE_SYSTEM` | Configure system properties such as OS Swappiness | `true` |
 | `TKS_BP_T_CONFIGURE_ZFS`              | Configures ZFS Memory Limitations, Swappiness, email notifications, etc. | `true`        |
 | `TKS_BP_T_INSTALL_PACKAGES`              | Install a list of qualify-of-life packages for standard system administration | `true`        |
 | `TKS_BP_T_INSTALL_SANOID`                | Install [Sanoid](https://github.com/jimsalterjrs/sanoid) and configure automatic ZFS Snapshot management | `true`        |
-| `TKS_BP_T_INSTALL_POSTFIX` |Install and configure a Postfix SMTP relay for email notifications|`true`|
+| `TKS_BP_T_INSTALL_POSTFIX` |Install and configure a [Postfix](http://www.postfix.org/) SMTP relay for email notifications|`true`|
 | `TKS_BP_T_INSTALL_ZSH`                   | Install and configure [ZSH](https://www.zsh.org/) as the default user shell | `true`        |
 
-For example, if you wanted to switch over to the contributor repositories, install my preferred qualify of life packages, and set up unattended upgrades you might:
+For example, if you wanted to switch over to the contributor repositories, install my preferred qualify of life packages, configure ZFS, and set up unattended upgrades you might:
 
 1. *Configure your Ansible client:*
 
@@ -126,6 +127,7 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export TKS_BP_T_CONFIGURE_REPOSITORIES=true
    export TKS_BP_T_INSTALL_PACKAGES=true
    export TKS_BP_T_INSTALL_POSTFIX=true 
+   export TKS_BP_T_CONFIGURE_SYSTEM=true
    export TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES=true
    ```
 
@@ -140,7 +142,13 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export TKS_BP_V_POSTFIX_TLS='yes'
    ```
 
-4. *Define some variables to configure Unattended Upgrades:*
+4. *Configure the OS Swappiness as a percentage of 100.*
+
+   ```bash
+   export TKS_BP_V_SYS_SWAPPINESS=10
+   ```
+   
+5. *Define some variables to configure Unattended Upgrades:*
 
    ```bash
    export TKS_BP_V_UPGRADES_NOTIFY=true
@@ -149,7 +157,7 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export TKS_BP_V_UPGRADES_LOG_SYSLOG=true
    ```
 
-5. *Apply the configurations to Proxmox:*
+6. *Apply the configurations to Proxmox:*
 
    ```bash
    ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml

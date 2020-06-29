@@ -9,6 +9,7 @@
         # Configure Tasks
         CONFIGURE_REPOSITORIES: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_REPOSITORIES') | default('false') }}"
         CONFIGURE_UNATTENDED_UPGRADES: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES') | default('false') }}"
+        CONFIGURE_SYSTEM: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_SYSTEM') }}"
         CONFIGURE_ZFS: "{{ lookup('env', 'TKS_BP_T_CONFIGURE_ZFS') }}"
         #
         #
@@ -40,5 +41,6 @@
         #
         #
         # ZFS Variables
-        VAR_ZFS_SWAPPINESS: "{{ lookup('env', 'TKS_BP_V_ZFS_SWAPPINESS') | default('10') }}"
+        VAR_SYS_SWAPPINESS: "{{ lookup('env', 'TKS_BP_V_SYS_SWAPPINESS') | default('10') }}"
         # VAR_ZFS_ARC_MAX: "{{ lookup('env', 'TKS_BP_V_ZFS_ARC_MAX' }}"
+        VAR_ZFS_POOL_LIST: "{{ lookup('env', 'TKS_BP_V_ZFS_POOL_LIST') }}"
