@@ -107,14 +107,26 @@ Now that we can use Ansible freely, we can use the `site.yml` playbook to set up
 | `TKS_BP_T_CONFIGURE_ZED`                 | Send [email notifications](https://pve.proxmox.com/wiki/ZFS_on_Linux) pertaining to ZFS-related events | `true`        |
 | `TKS_BP_T_INSTALL_PACKAGES`              | Install a list of qualify-of-life packages for standard system administration | `true`        |
 | `TKS_BP_T_INSTALL_SANOID`                | Install [Sanoid](https://github.com/jimsalterjrs/sanoid) and configure automatic ZFS Snapshot management | `true`        |
-| `TKS_BP_T_INSTALL_MSMTP_RELAY            | Install and configure an [msmtp](https://marlam.de/msmtp/) relay for email notifications | `true`        |
+| `TKS_BP_T_INSTALL_MSMTP_RELAY`      |Install and configure an [msmtp](https://marlam.de/msmtp/) relay for email notifications|`true`|
 | `TKS_BP_T_INSTALL_ZSH`                   | Install and configure [ZSH](https://www.zsh.org/) as the default user shell | `true`        |
 
-For example, if you just wanted to switch over to the contributor repositories and install my preferred qualify of life packages:
+For example, if you wanted to switch over to the contributor repositories, install my preferred qualify of life packages, and set up unattended upgrades:
 
 ```bash
-export TKS_BP_R_CONFIGURE_REPOSITORIES=true
-export TKS_BP_R_INSTALL_PACKAGES=true
+export ANSIBLE_REMOTE_USER="tj"
+export ANSIBLE_ASK_PASS=false
+export ANSIBLE_PRIVATE_KEY_FILE="~/.ssh/sol.milkyway"
+
+export TKS_BP_T_CONFIGURE_REPOSITORIES=true
+export TKS_BP_T_INSTALL_PACKAGES=true
+export TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES=true
+
+export TKS_BP_V_MSMTP_EMAIL="email@domain.com"
+ export TKS_BP_V_MSMTP_PASSWORD="YOURPASSWORD"
+export TKS_BP_V_UPGRADES_NOTIFY=true
+export TKS_BP_V_UPGRADES_EMAIL="email@domain.com"
+export TKS_BP_V_UPGRADES_ON_SHUTDOWN=true
+export TKS_BP_V_UPGRADES_LOG_SYSLOG=true
 
 ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml
 ```
@@ -127,7 +139,7 @@ ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml
 
 Your environment may or may not include multiple physical nodes. as a result, this step is **optional**. In order to form a cluster, you must have at least one master and node present in your inventory file under the groups `master` and `nodes`. Furthermore, only a single master can be in your inventory. Lastly, as a limitation invoked by Proxmox, your node can not have any workloads currently running on it.
 
-Configure your shell so that it does not commit entries to history that start with a whitespace. Then export the required environment variables and the Ansible Playbook.
+Export the required environment variables and run the `configure_cluster.yml` Ansible Playbook.
 
 ```bash
 export HISTCONTROL=ignoreboth
@@ -225,3 +237,4 @@ Our goal here is to provide our hypervisor with storage to use for three primary
    ```
 
 <hr>
+

@@ -4,3 +4,9 @@
 
 - import_tasks: install_base_packages.yml
   when: INSTALL_PACKAGES == "true"
+
+- import_tasks: install_msmtp_relay.yml
+  when: INSTALL_MSMTP == "true"
+
+- import_tasks: configure_unattended_upgrades.yml
+  when: CONFIGURE_UNATTENDED_UPGRADES == "true"
