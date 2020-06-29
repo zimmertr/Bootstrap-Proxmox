@@ -110,28 +110,48 @@ Now that we can use Ansible freely, we can use the `site.yml` playbook to set up
 | `TKS_BP_T_INSTALL_MSMTP_RELAY`      |Install and configure an [msmtp](https://marlam.de/msmtp/) relay for email notifications|`true`|
 | `TKS_BP_T_INSTALL_ZSH`                   | Install and configure [ZSH](https://www.zsh.org/) as the default user shell | `true`        |
 
-For example, if you wanted to switch over to the contributor repositories, install my preferred qualify of life packages, and set up unattended upgrades:
+For example, if you wanted to switch over to the contributor repositories, install my preferred qualify of life packages, and set up unattended upgrades you might:
 
-```bash
-export ANSIBLE_REMOTE_USER="tj"
-export ANSIBLE_ASK_PASS=false
-export ANSIBLE_PRIVATE_KEY_FILE="~/.ssh/sol.milkyway"
+1. Configure your Ansible client:
 
-export TKS_BP_T_CONFIGURE_REPOSITORIES=true
-export TKS_BP_T_INSTALL_PACKAGES=true
-export TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES=true
+   ```bash
+   export ANSIBLE_REMOTE_USER="tj"
+   export ANSIBLE_ASK_PASS=false
+   export ANSIBLE_PRIVATE_KEY_FILE="~/.ssh/sol.milkyway"
+   ```
 
-export TKS_BP_V_MSMTP_EMAIL="email@domain.com"
- export TKS_BP_V_MSMTP_PASSWORD="YOURPASSWORD"
-export TKS_BP_V_UPGRADES_NOTIFY=true
-export TKS_BP_V_UPGRADES_EMAIL="email@domain.com"
-export TKS_BP_V_UPGRADES_ON_SHUTDOWN=true
-export TKS_BP_V_UPGRADES_LOG_SYSLOG=true
+2. Export the variables indicating which configurations you wish to apply: 
 
-ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml
-```
+   ```bash
+   export TKS_BP_T_CONFIGURE_REPOSITORIES=true
+   export TKS_BP_T_INSTALL_PACKAGES=true
+   export TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES=true
+   ```
 
-<hr>
+3. Define some variables to configure the `msmtp` relay client. Be mindful to not leave your password in your shell history:
+
+   ```bash
+   export HISTCONTROL=ignoreboth
+   export TKS_BP_V_MSMTP_EMAIL="email@domain.com"
+    export TKS_BP_V_MSMTP_PASSWORD="YOURPASSWORD"
+   ```
+
+4. Define some variables to configure Unattended Upgrades:
+
+   ```bash
+   export TKS_BP_V_UPGRADES_NOTIFY=true
+   export TKS_BP_V_UPGRADES_EMAIL="email@domain.com"
+   export TKS_BP_V_UPGRADES_ON_SHUTDOWN=true
+   export TKS_BP_V_UPGRADES_LOG_SYSLOG=true
+   ```
+
+5. Apply the configurations to Proxmox:
+
+   ```bash
+   ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml
+   ```
+
+   <hr>
 
 
 
@@ -139,7 +159,7 @@ ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml
 
 Your environment may or may not include multiple physical nodes. as a result, this step is **optional**. In order to form a cluster, you must have at least one master and node present in your inventory file under the groups `master` and `nodes`. Furthermore, only a single master can be in your inventory. Lastly, as a limitation invoked by Proxmox, your node can not have any workloads currently running on it.
 
-Export the required environment variables and run the `configure_cluster.yml` Ansible Playbook.
+Export the required environment variables and run the `configure_cluster.yml` Ansible Playbook. Be mindful to not leave your password in your shell history:
 
 ```bash
 export HISTCONTROL=ignoreboth
