@@ -104,7 +104,7 @@ Now that we can use Ansible freely, we can use the `site.yml` playbook to set up
 | ---------------------------------------- | ------------------------------------------------------------ | ------------- |
 | `TKS_BP_T_CONFIGURE_REPOSITORIES`        | Use the [Contributor repositories](https://pve.proxmox.com/wiki/Package_Repositories) for packages | `true`        |
 | `TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES` | Automatically manage [package updates](https://wiki.debian.org/UnattendedUpgrades) | `true`        |
-| `TKS_BP_T_CONFIGURE_ZED`                 | Send [email notifications](https://pve.proxmox.com/wiki/ZFS_on_Linux) pertaining to ZFS-related events | `true`        |
+| `TKS_BP_T_CONFIGURE_ZFS`              | Configures ZFS Memory Limitations, Swappiness, email notifications, etc. | `true`        |
 | `TKS_BP_T_INSTALL_PACKAGES`              | Install a list of qualify-of-life packages for standard system administration | `true`        |
 | `TKS_BP_T_INSTALL_SANOID`                | Install [Sanoid](https://github.com/jimsalterjrs/sanoid) and configure automatic ZFS Snapshot management | `true`        |
 | `TKS_BP_T_INSTALL_MSMTP_RELAY`      |Install and configure an [msmtp](https://marlam.de/msmtp/) relay for email notifications|`true`|

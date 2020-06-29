@@ -3,6 +3,20 @@ Configure Proxmox
 
 Configure a newly installed Proxmox VE server.
 
+Tasks
+-----
+
+| Task                                | Description                                                  |
+| ----------------------------------- | ------------------------------------------------------------ |
+| `configure_repository_contrib.yml`  | Configure apt to use the Proxmox contributor repositories.   |
+| `configure_unattended_upgrades.yml` | Installs and configures Unattended Upgrades.                 |
+| `configure_zfs.yml`                 | Configures ZFS Memory Limitations, Swappiness, email notifications, etc. |
+| `install_base_packages.yml`         | Installs and configures my desired base packages.            |
+| `install_msmtp_relay.yml`           | Installs and configures an `msmtp` relay.                    |
+| `main.yml`                          | The main task that is executed automatically by the role. Calls other tasks depending on desired state. |
+
+
+
 Role Variables
 --------------
 
