@@ -142,11 +142,8 @@ Our goal here is to provide our hypervisor with storage to use for three primary
    mkfs.xfs /dev/RAIDPool/RAIDPool_Data 
    mkfs.xfs /dev/RAIDPool/RAIDPool_Templates 
    mkfs.xfs /dev/RAIDPool/RAIDPool_Backups 
-   
-   # Set up SATADOM Proxmox Data partition as well.
-   mkfs.xfs /dev/pve/data 
    ```
-
+   
 2. *Create working directories for Proxmox Backups, ISOs, & Templates and configure `/etc/fstab` accordingly.*
 
    ```bash
@@ -159,12 +156,8 @@ Our goal here is to provide our hypervisor with storage to use for three primary
    echo "/dev/RAIDPool/RAIDPool_Backups /mnt/RAIDPool_Backups xfs defaults 0 0" >> /etc/fstab
    
    echo "/dev/RAIDPool/RAIDPool_Data /mnt/RAIDPool_Data xfs defaults 0 0" >> /etc/fstab
-   
-   # Set up SATADOM Proxmox Data partition as well.
-   mkdir /mnt/SATADOM_Data
-   echo "/dev/pve/data /mnt/SATADOM_Data xfs defaults 0 0" >> /etc/fstab
    ```
-
+   
 3. *Import the ZFS Storage Pools.*
 
    ```bash
