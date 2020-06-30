@@ -26,3 +26,23 @@
     name: zfs-zed
     enabled: yes
     state: restarted
+
+- name: Installing Sanoid
+  apt:
+    deb: /tmp/git/sanoid_{{ VAR_SANOID_VERSION }}_all.deb
+
+- name: Cleaning up the temporary directory
+  file:
+    path: /tmp/git/
+    state: absent
+
+- name: Enabling & Restarting Sanoid
+  systemd:
+    name: sanoid
+    enabled: yes
+    state: restarted
+
+- name: Coping a default sanoid.conf file to the server.
+  copy:
+    src: "sanoid.conf"
+    dest: "/etc/sanoid/sanoid.conf"

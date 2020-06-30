@@ -15,7 +15,7 @@
         #
         # Install Tasks
         INSTALL_PACKAGES: "{{ lookup('env', 'TKS_BP_T_INSTALL_PACKAGES') }}"
-        # INSTALL_SANOID: "{{ lookup('env', 'TKS_BP_T_INSTALL_SANOID') }}"   
+        INSTALL_SANOID: "{{ lookup('env', 'TKS_BP_T_INSTALL_SANOID') }}"   
         INSTALL_POSTFIX: "{{ lookup('env', 'TKS_BP_T_INSTALL_POSTFIX') }}"    
         # INSTALL_ZSH: "{{ lookup('env', 'TKS_BP_T_INSTALL_ZSH') }}"   
         #
@@ -40,7 +40,14 @@
         VAR_UPGRADES_LOG_SYSLOG: "{{ lookup('env', 'TKS_BP_V_UPGRADES_LOG_SYSLOG') | default('true') }}"
         #
         #
-        # ZFS Variables
+        # System Variables
         VAR_SYS_SWAPPINESS: "{{ lookup('env', 'TKS_BP_V_SYS_SWAPPINESS') | default('10') }}"
+        #
+        #
+        # ZFS Variables
         # VAR_ZFS_ARC_MAX: "{{ lookup('env', 'TKS_BP_V_ZFS_ARC_MAX' }}"
         VAR_ZFS_POOL_LIST: "{{ lookup('env', 'TKS_BP_V_ZFS_POOL_LIST') }}"
+        #
+        #
+        # Sanoid Variables
+        VAR_SANOID_VERSION: "{{ lookup('env', 'TKS_BP_V_SANOID_VERSION') | default('2.0.3') }}"

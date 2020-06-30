@@ -1,0 +1,39 @@
+---
+- fail:
+    msg: Please export TKS_BP_V_SANOID_VERSION environment variable if you wish to install Sanoid.
+  when: VAR_SANOID_VERSION == ""
+
+- name: Installing the dependencies for Sanoid
+  apt: 
+    state: present
+    name:
+      - debhelper
+      - libcapture-tiny-perl
+      - libconfig-inifiles-perl
+      - pv
+      - lzop
+      - mbuffer
+
+- name: Cloning the Sanoid repo
+  git:
+    repo: 'https://github.com/jimsalterjrs/sanoid.git'
+    dest: /tmp/git/sanoid
+    version: v{{ VAR_SANOID_VERSION }}
+
+- name: Creating a symlink for the Sanoid build script
+  file:
+    src: /tmp/git/sanoid/packages/debian
+    dest: /tmp/git/sanoid/debian
+    state: link
+
+- name: Building the Sanoid package
+  command: dpkg-buildpackage -uc -us
+  args:
+    chdir: /tmp/git/sanoid
+  notify:
+    - Installing Sanoid
+    - Cleaning up the temporary directory
+    - Coping a default sanoid.conf file to the server.
+    - Enabling & Restarting Sanoid
+
+

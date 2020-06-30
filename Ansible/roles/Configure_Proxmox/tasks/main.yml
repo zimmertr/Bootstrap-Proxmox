@@ -16,3 +16,6 @@
 
 - import_tasks: configure_zfs.yml
   when: CONFIGURE_ZFS == "true"
+
+- import_tasks: install_sanoid.yml
+  when: INSTALL_SANOID == "true"

@@ -111,7 +111,12 @@ Now that we can use Ansible freely, we can use the `site.yml` playbook to set up
 | `TKS_BP_T_INSTALL_POSTFIX` |Install and configure a [Postfix](http://www.postfix.org/) SMTP relay for email notifications|`true`|
 | `TKS_BP_T_INSTALL_ZSH`                   | Install and configure [ZSH](https://www.zsh.org/) as the default user shell | `true`        |
 
-For example, if you wanted to switch over to the contributor repositories, install my preferred qualify of life packages, configure ZFS, and set up unattended upgrades you might:
+For example, if you wanted to do the following, your steps might look like:
+
+* Switch over to the contributor repositories
+* Install my preferred qualify of life packages
+* Configure ZFS, ZED, and Sanoid
+* Set up Unattended Upgrades
 
 1. *Configure your Ansible client:*
 
@@ -148,7 +153,13 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export TKS_BP_V_SYS_SWAPPINESS=10
    ```
    
-5. *Define some variables to configure Unattended Upgrades:*
+5. *Configure the version of Sanoid you want to install.*
+
+   ```bash
+   export TKS_BP_V_SANOID_VESRION='2.0.3'
+   ```
+
+6. *Define some variables to configure Unattended Upgrades:*
 
    ```bash
    export TKS_BP_V_UPGRADES_NOTIFY=true
@@ -157,7 +168,7 @@ For example, if you wanted to switch over to the contributor repositories, insta
    export TKS_BP_V_UPGRADES_LOG_SYSLOG=true
    ```
 
-6. *Apply the configurations to Proxmox:*
+7. *Apply the configurations to Proxmox:*
 
    ```bash
    ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml

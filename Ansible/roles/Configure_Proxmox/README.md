@@ -36,7 +36,8 @@ Role Variables
 | `TKS_BP_V_UPGRADES_AUTO_REBOOT_TIME` | Schedule a time when automatic reboots should occur       | Yes         | `03:00`           |
 | `TKS_BP_V_UPGRADES_ON_SHUTDOWN`      | Only install upgrades when a graceful shutdown occurs     | Yes         | `true`            |
 | `TKS_BP_V_UPGRADES_LOG_SYSLOG`       | Log all upgrade messages to the SYSLOG                    | Yes         | `true`            |
-| `TKS_BP_V_ZFS_SWAPPINESS`            | The level of Swappiness applied to the OS                 | `Yes`       | `10`              |
+| `TKS_BP_V_SYS_SWAPPINESS`            | The level of Swappiness applied to the OS                 | Yes         | `10`              |
+| `TKS_BP_V_SANOID_VERSION`            | The version of Sanoid to install.                         | Yes         | `2.0.3`           |
 
 
 License
