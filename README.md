@@ -104,11 +104,11 @@ Now that we can use Ansible freely, we can use the `site.yml` playbook to set up
 | ---------------------------------------- | ------------------------------------------------------------ | ------------- |
 | `TKS_BP_T_CONFIGURE_REPOSITORIES`        | Use the [Contributor repositories](https://pve.proxmox.com/wiki/Package_Repositories) for packages | `true`        |
 | `TKS_BP_T_CONFIGURE_UNATTENDED_UPGRADES` | Automatically manage [package updates](https://wiki.debian.org/UnattendedUpgrades) | `true`        |
-| `TKS_BP_T_CONFIGURE_SYSTEM` | Configure system properties such as OS Swappiness | `true` |
-| `TKS_BP_T_CONFIGURE_ZFS`              | Configures ZFS Memory Limitations, Swappiness, email notifications, etc. | `true`        |
+| `TKS_BP_T_CONFIGURE_SYSTEM`              | Configure system properties such as OS Swappiness            | `true`        |
+| `TKS_BP_T_CONFIGURE_ZFS`                 | Configures ZFS Memory Limitations, Swappiness, email notifications, etc. | `true`        |
 | `TKS_BP_T_INSTALL_PACKAGES`              | Install a list of qualify-of-life packages for standard system administration | `true`        |
 | `TKS_BP_T_INSTALL_SANOID`                | Install [Sanoid](https://github.com/jimsalterjrs/sanoid) and configure automatic ZFS Snapshot management | `true`        |
-| `TKS_BP_T_INSTALL_POSTFIX` |Install and configure a [Postfix](http://www.postfix.org/) SMTP relay for email notifications|`true`|
+| `TKS_BP_T_INSTALL_POSTFIX`               | Install and configure a [Postfix](http://www.postfix.org/) SMTP relay for email notifications | `true`        |
 | `TKS_BP_T_INSTALL_ZSH`                   | Install and configure [ZSH](https://www.zsh.org/) as the default user shell | `true`        |
 
 For example, if you wanted to do the following, your steps might look like:

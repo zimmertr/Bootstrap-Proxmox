@@ -1,6 +1,15 @@
+---
 - name: Limiting the amount of System Swappiness
   sysctl:
     name: vm.swappiness
     value: '{{ VAR_SYS_SWAPPINESS }}'
     state: present
   when: VAR_SYS_SWAPPINESS != ""
+
+- name: Disabling the subscription banner
+  replace:
+    path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+    regexp: "data.status !== 'Active'"
+    replace: 'false'
+  notify:
+    - Restarting the Proxmox VE Proxy

@@ -46,3 +46,8 @@
   copy:
     src: "sanoid.conf"
     dest: "/etc/sanoid/sanoid.conf"
+
+- name: Restarting the Proxmox VE Proxy
+  systemd:
+    name: pveproxy
+    state: restarted
