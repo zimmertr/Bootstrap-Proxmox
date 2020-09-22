@@ -21,7 +21,7 @@
     ZFS_LIST: "{{ VAR_ZFS_POOL_LIST.split(',') }}"
   when: VAR_ZFS_POOL_LIST != ""
 
-- name: Coping automatic ZFS Scrubbing Systemd module
+- name: Copying automatic ZFS Scrubbing Systemd module
   copy:
     src: "{{ file }}"
     dest: "/etc/systemd/system/{{ file }}"
@@ -32,14 +32,12 @@
     loop_var: file
   when: ZFS_LIST is defined
 
-# Ansible's systemd module doesn't appear to like me enabling a timer for each item in the array like this
-# as it is looking for an exact string match for a timer filename instead of the templated one.
 - name: Enabling the automatic scrubber for each ZFS Pool
   systemd:
     daemon_reload: yes
-    name: zpool-scrub@{{ pool }}.timer
+    name: zfs-scrub@{{ pool }}.timer
     enabled: yes
-  with_items: 
+  with_items:
     - "{{ ZFS_LIST }}"
   loop_control:
     loop_var: pool
