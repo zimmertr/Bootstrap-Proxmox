@@ -1,11 +1,11 @@
 - name: Installing the sudo package
-  apt: 
+  apt:
     name: sudo
     state: present
-    update_cache: no 
+    update_cache: no
 
 - name: Adding a new group for Ansible
-  group: 
+  group:
     name: ansible
     state: present
 

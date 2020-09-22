@@ -4,7 +4,7 @@
   when: VAR_SANOID_VERSION == ""
 
 - name: Installing the dependencies for Sanoid
-  apt: 
+  apt:
     state: present
     name:
       - debhelper

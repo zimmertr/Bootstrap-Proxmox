@@ -1,5 +1,5 @@
 ---
-# Commenting out until I figure out a way to dynamically set this 
+# Commenting out until I figure out a way to dynamically set this
 # Will probably involve:
 # https://stackoverflow.com/questions/38033996/ansible-and-hardware-checks
 # https://www.mydailytutorials.com/ansible-arithmetic-operations/
@@ -39,7 +39,7 @@
     daemon_reload: yes
     name: zpool-scrub@{{ pool }}.timer
     enabled: yes
-  with_items: 
+  with_items:
     - "{{ ZFS_LIST }}"
   loop_control:
     loop_var: pool
