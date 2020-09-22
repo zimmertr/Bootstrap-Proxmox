@@ -20,24 +20,25 @@ Tasks
 Role Variables
 --------------
 
-| Variable                             | Description                                               | Has Default | Example           |
-| ------------------------------------ | --------------------------------------------------------- | ----------- | ----------------- |
-| `TKS_BP_V_POSTFIX_SERVER`            | Remote SMTP Server                                        | Yes         | `smtp.gmail.com`  |
-| `TKS_BP_V_POSTFIX_PORT`              | Remote SMTP Port                                          | Yes         | `587`             |
-| `TKS_BP_V_POSTFIX_TLS`               | Remote SMTP Server TLS Support                            | Yes         | `yes`             |
-| `TKS_BP_V_POSTFIX_EMAIL`             | Remote SMTP Server Username                               | No          | `email@gmail.com` |
-| `TKS_BP_V_POSTFIX_PASSWORD`          | Remote SMTP Server Password                               | No          | `PASSWORD`        |
-| `TKS_BP_V_UPGRADES_NOTIFY`           | Enable notifications for unattended upgrades              | Yes         | `true`            |
-| `TKS_BP_V_UPGRADES_NOTIFY_ON_ERROR`  | Only send notifications for upgrades on error             | Yes         | `false`           |
-| `TKS_BP_V_UPGRADES_EMAIL`            | The destination email address for unattended upgrades     | No          | `email@gmail.com` |
-| `TKS_BP_V_UPGRADES_UNUSED_DEP`       | Automatically remove unused dependencies                  | Yes         | `false`           |
-| `TKS_BP_V_UPGRADES_UNUSED_K_PAC`     | Automatically remove unused kernel packages               | Yes         | `false`           |
-| `TKS_BP_V_UPGRADES_AUTO_REBOOT`      | Automatically reboot the node to install package upgrades | Yes         | `false`           |
-| `TKS_BP_V_UPGRADES_AUTO_REBOOT_TIME` | Schedule a time when automatic reboots should occur       | Yes         | `03:00`           |
-| `TKS_BP_V_UPGRADES_ON_SHUTDOWN`      | Only install upgrades when a graceful shutdown occurs     | Yes         | `true`            |
-| `TKS_BP_V_UPGRADES_LOG_SYSLOG`       | Log all upgrade messages to the SYSLOG                    | Yes         | `true`            |
-| `TKS_BP_V_SYS_SWAPPINESS`            | The level of Swappiness applied to the OS                 | Yes         | `10`              |
-| `TKS_BP_V_SANOID_VERSION`            | The version of Sanoid to install.                         | Yes         | `2.0.3`           |
+| Variable                             | Description                                               | Has Default | Example               |
+| ------------------------------------ | --------------------------------------------------------- | ----------- | --------------------- |
+| `TKS_BP_V_POSTFIX_SERVER`            | Remote SMTP Server                                        | Yes         | `smtp.gmail.com`      |
+| `TKS_BP_V_POSTFIX_PORT`              | Remote SMTP Port                                          | Yes         | `587`                 |
+| `TKS_BP_V_POSTFIX_TLS`               | Remote SMTP Server TLS Support                            | Yes         | `yes`                 |
+| `TKS_BP_V_POSTFIX_EMAIL`             | Remote SMTP Server Username                               | No          | `email@gmail.com`     |
+| `TKS_BP_V_POSTFIX_PASSWORD`          | Remote SMTP Server Password                               | No          | `PASSWORD`            |
+| `TKS_BP_V_UPGRADES_NOTIFY`           | Enable notifications for unattended upgrades              | Yes         | `true`                |
+| `TKS_BP_V_UPGRADES_NOTIFY_ON_ERROR`  | Only send notifications for upgrades on error             | Yes         | `false`               |
+| `TKS_BP_V_UPGRADES_EMAIL`            | The destination email address for unattended upgrades     | No          | `email@gmail.com`     |
+| `TKS_BP_V_UPGRADES_UNUSED_DEP`       | Automatically remove unused dependencies                  | Yes         | `false`               |
+| `TKS_BP_V_UPGRADES_UNUSED_K_PAC`     | Automatically remove unused kernel packages               | Yes         | `false`               |
+| `TKS_BP_V_UPGRADES_AUTO_REBOOT`      | Automatically reboot the node to install package upgrades | Yes         | `false`               |
+| `TKS_BP_V_UPGRADES_AUTO_REBOOT_TIME` | Schedule a time when automatic reboots should occur       | Yes         | `03:00`               |
+| `TKS_BP_V_UPGRADES_ON_SHUTDOWN`      | Only install upgrades when a graceful shutdown occurs     | Yes         | `true`                |
+| `TKS_BP_V_UPGRADES_LOG_SYSLOG`       | Log all upgrade messages to the SYSLOG                    | Yes         | `true`                |
+| `TKS_BP_V_SYS_SWAPPINESS`            | The level of Swappiness applied to the OS                 | Yes         | `10`                  |
+| `TKS_BP_V_ZFS_POOL_LIST`             | Enable timed scrubbing on ZFS pools, comma separated      | No          | `DataPool,FlashPool`  |
+| `TKS_BP_V_SANOID_VERSION`            | The version of Sanoid to install.                         | Yes         | `2.0.3`               |
 
 
 License
