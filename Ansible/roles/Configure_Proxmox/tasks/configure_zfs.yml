@@ -1,5 +1,5 @@
 ---
-# Commenting out until I figure out a way to dynamically set this 
+# Commenting out until I figure out a way to dynamically set this
 # Will probably involve:
 # https://stackoverflow.com/questions/38033996/ansible-and-hardware-checks
 # https://www.mydailytutorials.com/ansible-arithmetic-operations/

@@ -1,12 +1,11 @@
 ---
 - name: Installing an email and smtp relay client
-  apt: 
+  apt:
     state: present
     name:
     - unattended-upgrades
     - apt-listchanges
-  when: 
-    - CONFIGURE_UNATTENDED_UPGRADES != ""
+  when:
     - CONFIGURE_UNATTENDED_UPGRADES == "true"
 
 - name: Configuring SMTP notifications for unattended upgrades
@@ -15,9 +14,8 @@
       regexp: '/?/?Unattended-Upgrade::Mail .*'
       line: 'Unattended-Upgrade::Mail "{{ VAR_UPGRADES_EMAIL |lower }}";'
       backrefs: yes
-  when: 
+  when:
     - VAR_UPGRADES_EMAIL != ""
-    - VAR_UPGRADES_NOTIFY != ""
     - VAR_UPGRADES_NOTIFY == "true"
   notify:
     - Restarting unattended-upgrades
@@ -28,10 +26,8 @@
       regexp: '/?/?Unattended-Upgrade::MailOnlyOnError.*'
       line: 'Unattended-Upgrade::MailOnlyOnError true;'
       backrefs: yes
-  when: 
-    - VAR_UPGRADES_NOTIFY != ""
+  when:
     - VAR_UPGRADES_NOTIFY == "true"
-    - VAR_UPGRADES_NOTIFY_ON_ERROR != ""
     - VAR_UPGRADES_NOTIFY_ON_ERROR == "true" or VAR_UPGRADES_NOTIFY_ON_ERROR == "false"
   notify:
     - Restarting unattended-upgrades
@@ -42,8 +38,7 @@
     regexp: '/?/?Unattended-Upgrade::InstallOnShutdown.*'
     line: 'Unattended-Upgrade::InstallOnShutdown true;'
     backrefs: yes
-  when: 
-    - VAR_UPGRADES_ON_SHUTDOWN != ""
+  when:
     - VAR_UPGRADES_ON_SHUTDOWN == "true"
   notify:
     - Restarting unattended-upgrades
@@ -54,8 +49,7 @@
     regexp: '/?/?Unattended-Upgrade::Remove-Unused-Kernel-Packages.*'
     line: 'Unattended-Upgrade::Remove-Unused-Kernel-Packages true;'
     backrefs: yes
-  when: 
-    - VAR_UPGRADES_UNUSED_K_PAC != ""
+  when:
     - VAR_UPGRADES_UNUSED_K_PAC == "true"
   notify:
     - Restarting unattended-upgrades
@@ -66,8 +60,7 @@
     regexp: '/?/?Unattended-Upgrade::Remove-Unused-Dependencies.*'
     line: 'Unattended-Upgrade::Remove-Unused-Dependencies true;'
     backrefs: yes
-  when: 
-    - VAR_UPGRADES_UNUSED_DEP != ""
+  when:
     - VAR_UPGRADES_UNUSED_DEP == "true"
   notify:
     - Restarting unattended-upgrades
@@ -78,8 +71,7 @@
     regexp: '/?/?Unattended-Upgrade::Automatic-Reboot .*'
     line: 'Unattended-Upgrade::Automatic-Reboot true;'
     backrefs: yes
-  when: 
-    - VAR_UPGRADES_AUTO_REBOOT != ""
+  when:
     - VAR_UPGRADES_AUTO_REBOOT == "true"
   notify:
     - Restarting unattended-upgrades
@@ -90,8 +82,7 @@
     regexp: '/?/?Unattended-Upgrade::Automatic-Reboot-Time.*'
     line: 'Unattended-Upgrade::Automatic-Reboot-Time "{{ VAR_UPGRADES_AUTO_REBOOT_TIME }}";'
     backrefs: yes
-  when: 
-    - VAR_UPGRADES_AUTO_REBOOT != ""
+  when:
     - VAR_UPGRADES_AUTO_REBOOT == "true"
     - VAR_UPGRADES_AUTO_REBOOT_TIME != ""
   notify:
@@ -103,8 +94,7 @@
     regexp: '/?/? ?Unattended-Upgrade::SyslogEnable.*'
     line: 'Unattended-Upgrade::SyslogEnable true;'
     backrefs: yes
-  when: 
-    - VAR_UPGRADES_LOG_SYSLOG != ""
+  when:
     - VAR_UPGRADES_LOG_SYSLOG == "true"
   notify:
     - Restarting unattended-upgrades

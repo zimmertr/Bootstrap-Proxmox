@@ -12,11 +12,11 @@
 
 - hosts: proxmox
   gather_facts: False
-  vars: 
+  vars:
     SSH_KEY: "{{ lookup('env', 'TKS_BP_V_PROXMOX_SSH_KEY') | default('~/.ssh/TKS') }}"
     USER_ACCOUNT: "{{ lookup('env', 'TKS_BP_V_PROXMOX_USER_NAME') | default('tks') }}"
   tasks:
-    - import_role: 
+    - import_role:
         name: Create_User_Account
       when:
         - lookup('env', 'TKS_BP_R_CREATE_USER_ACCOUNT') == 'true'
