@@ -1,23 +1,28 @@
 # TKS-Bootstrap_Proxmox
 
+This repository can be used on its own but it is intended to be used as a submodule of [TKS](https://github.com/zimmertr/TKS). TKS enables enthusiasts and administrators alike to easily provision highly available and production-ready Kubernetes clusters and other modern infrastructure on Proxmox VE. 
+
 * [Summary](#Summary)
-* [How To Use](#How-To-Use)
+* [Requirements](#Requirements)
 * [Instructions](#Instructions)
    * [Install Proxmox VE](#Install-Proxmox-VE)
    * [Create User Account](#Create-User-Account)
    * [Configure Proxmox](#Configure-Proxmox)
    * [Configure Clustering](#Configure-Clustering)
    * [Configure Storage](#Configure-Storage)
+<hr>
 
 ## Summary
 
 `Bootstrap_Proxmox` sets up a Proxmox server for TKS by creating the necessary user accounts, installing package dependencies, and more.
 
-## How To Use
-
-This repository can be used on its own but it is intended to be used as a submodule of [TKS](https://github.com/zimmertr/TKS). Consider cloning that instead. TKS enable enthusiasts and administrators alike to easily provision highly available and production-ready Kubernetes clusters on Proxmox VE.
-
 Ansible is used to configure Proxmox. Logic is split into multiple roles which are often highly configurable and even optional. Configurations are applied to TKS using environment variables. For a list of supported environment variables, see the README document for each role.
+<hr>
+
+## Requirements
+
+This project assumes you have a network connection, workstation, server, and bootable flash drive/iDRAC. 
+<hr>
 
 ## Instructions
 
@@ -55,9 +60,6 @@ In my case, I have both a Dell server with IDRAC and a Mac Pro that requires a b
 
 4. *Disconnect the flash drive from your workstation and connect it to your server. Power it on, and boot from the USB. With my Mac Pro, I accomplish this by holding down the `Option` key. Allow the computer to boot into the Proxmox VE installer.*
 
-<hr>
-
-
 ### Create a new user account
 
 Now that Proxmox has been installed, it's time to set up a user account for Ansible to use. We'll also be creating an SSH key and adding it to the `authorized_keys` file for that user as well as installing `sudo` and making them a sudoer.
@@ -92,9 +94,6 @@ Now that Proxmox has been installed, it's time to set up a user account for Ansi
    export ANSIBLE_ASK_PASS=false
    export ANSIBLE_PRIVATE_KEY_FILE=~/.ssh/sol.milkyway
    ```
-
-<hr>
-
 
 ### Configure Proxmox
 
@@ -174,10 +173,6 @@ For example, if you wanted to do the following, your steps might look like:
    ansible-playbook -i inventory.yml TKS-Bootstrap_Proxmox/Ansible/site.yml
    ```
 
-   <hr>
-
-
-
 ### Configure Clustering
 
 Your environment may or may not include multiple physical nodes. as a result, this step is **optional**. In order to form a cluster, you must have at least one master and node present in your inventory file under the groups `master` and `nodes`. Furthermore, only a single master can be in your inventory. Lastly, as a limitation invoked by Proxmox, your node can not have any workloads currently running on it.
@@ -204,9 +199,6 @@ rm /etc/corosync/*
 killall pmxcfs
 systemctl start pve-cluster
 ```
-
-<hr>
-
 
 ### Configure Storage
 
