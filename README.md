@@ -44,7 +44,7 @@ In my case, I have both a Dell server with IDRAC and a Mac Pro that requires a b
 
 1. *Connect a flash drive to your workstation and use [fdisk](https://linux.die.net/man/8/fdisk) or [diskutil](https://ss64.com/osx/diskutil.html) to determine the mountpath. Mine is `/dev/sdf`.*
 
-2. *Export the required variables documented in the role's README.*
+2. *Export the required variables documented in the role's README. You can find the latest ISO url for Proxmox [here](https://www.proxmox.com/en/downloads/category/iso-images-pve).*
 
    ```bash
    export TKS_BM_V_PROXMOX_ISO_URL="https://www.proxmox.com/en/downloads?task=callelement&format=raw&item_id=513&element=f85c494b-2b32-4109-b8c1-083cca2b7db6&method=download&args[0]=e20c5339a85f415aa8786ae730d14f05"
