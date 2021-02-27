@@ -1,6 +1,6 @@
 # TKS - Bootstrap Proxmox
 
-This repository can be used on its own but it is intended to be used as a submodule of [TKS](https://github.com/zimmertr/TKS). TKS enables enthusiasts and administrators alike to easily provision highly available and production-ready Kubernetes clusters and other modern infrastructure on Proxmox VE. 
+This repository can be used on its own but it is intended to be used as a submodule of [TKS](https://github.com/zimmertr/TKS). TKS enables enthusiasts and administrators alike to easily provision highly available and production-ready Kubernetes clusters and other modern infrastructure on Proxmox VE.
 
 * [Summary](#Summary)
 * [Requirements](#Requirements)
@@ -21,7 +21,7 @@ Ansible is used to configure Proxmox. Logic is split into multiple roles which a
 
 ## Requirements
 
-This project assumes you have a network connection, workstation, server, and bootable flash drive/iDRAC. 
+This project assumes you have a network connection, server, and bootable flash drive/iDRAC. As well as a workstation with [Ansible >= 2.9](https://github.com/zimmertr/TKS-Bootstrap_Proxmox/issues/6) installed.
 <hr>
 
 ## Instructions
@@ -40,7 +40,7 @@ In my case, I have both a Dell server with IDRAC and a Mac Pro that requires a b
 6. *Set `Available Operation Systems` to `Any Other Operation System`, choose a `Manual Install`, choose `PVE Virtual CD` as your media,*
 7. *Press `Finish` and wait for the Lifecycle Controller to boot into the Proxmox VE installer.*
 
-**Bootable USB:**
+**Bootable USB Installer:**
 
 1. *Connect a flash drive to your workstation and use [fdisk](https://linux.die.net/man/8/fdisk) or [diskutil](https://ss64.com/osx/diskutil.html) to determine the mountpath. Mine is `/dev/sdf`.*
 
