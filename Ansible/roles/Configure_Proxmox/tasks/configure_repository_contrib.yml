@@ -2,6 +2,7 @@
 - name: Updating system repos
   apt_repository:
     repo: "{{ item }}"
+    update_cache: no
   loop:
     - "deb http://ftp.us.debian.org/debian buster main contrib"
     - "deb http://ftp.us.debian.org/debian buster-updates main contrib"
