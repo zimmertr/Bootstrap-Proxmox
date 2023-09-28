@@ -1,0 +1,32 @@
+- name: Configure ZED to email admin
+  replace:
+    path: /etc/zfs/zed.d/zed.rc
+    regexp: 'ZED_EMAIL_ADDR=.*'
+    replace: 'ZED_EMAIL_ADDR="{{ ZED_EMAIL_ADDRESS }}"'
+
+- name: Configuring ZED to send notifications regardless of drive health
+  replace:
+    path: /etc/zfs/zed.d/zed.rc
+    regexp: '.*ZED_NOTIFY_VERBOSE.*'
+    replace: 'ZED_NOTIFY_VERBOSE=1'
+
+- name: Restart ZED
+  systemd:
+    state: restarted
+    name: zed
+
+- name: Copying Systemd units to enable automatic Zpool scrubbing
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+  loop:
+    - zfs-scrub@.service
+    - zfs-scrub@.timer
+
+- name: Enabling the automatic scrubber for each ZFS Pool
+  systemd:
+    daemon_reload: yes
+    name: zfs-scrub@{{ item }}.timer
+    enabled: yes
+  with_items:
+    - "{{ ZPOOL_LIST.split(',') }}"

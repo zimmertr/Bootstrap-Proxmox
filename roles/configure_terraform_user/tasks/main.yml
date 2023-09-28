@@ -1,0 +1,48 @@
+- name: Validate role already exists
+  shell: "pveum role list | grep {{ TERRAFORM_ROLE_NAME }}"
+  register: ROLE_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new role
+  command: "pveum role add {{ TERRAFORM_ROLE_NAME }} --privs '{{ TERRAFORM_ROLE_PRIVILEGES }}'"
+  when: ROLE_EXISTS_STATUS.rc == 1
+
+- name: Modify the existing role
+  command: "pveum role modify {{ TERRAFORM_ROLE_NAME }} --privs '{{ TERRAFORM_ROLE_PRIVILEGES }}'"
+  when: ROLE_EXISTS_STATUS.rc == 0
+
+- name: Validate user already exists
+  shell: "pveum user list | grep {{ TERRAFORM_USER }}"
+  register: USER_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new user
+  command: "pveum user add {{ TERRAFORM_USER }} --password {{ password }}"
+  when: USER_EXISTS_STATUS.rc == 1
+
+- name: Modify the existing user
+  command: "pveum passwd {{ TERRAFORM_USER }} --password {{ password }}"
+  when: USER_EXISTS_STATUS.rc == 0
+
+- name: Add user to role
+  command: "pveum aclmod / -user {{ TERRAFORM_USER }} -role {{ TERRAFORM_ROLE_NAME }}"
+
+- name: Validate api token already exists
+  shell: "pveum user token list {{ TERRAFORM_USER }} | grep {{ TERRAFORM_ROLE_NAME}}"
+  register: TOKEN_EXISTS_STATUS
+  ignore_errors: true
+  
+- name: Create a new API Token
+  shell: "pveum user token add {{ TERRAFORM_USER }} {{ TERRAFORM_ROLE_NAME }} --privsep 1 | awk '{print $4}' | grep -"
+  register: apiToken
+  when: TOKEN_EXISTS_STATUS.rc == 1
+
+- name: Echo the token
+  debug:
+    msg: "export PROXMOX_VE_API_TOKEN='{{ TERRAFORM_USER }}!{{ TERRAFORM_ROLE_NAME }}={{ apiToken.stdout }}'"
+  when: TOKEN_EXISTS_STATUS.rc == 1
+  
+- name: Modify the existing token
+  shell: "pveum user token modify {{ TERRAFORM_USER }} {{ TERRAFORM_ROLE_NAME }} --privsep 1"
+  register: apiToken
+  when: TOKEN_EXISTS_STATUS.rc == 0

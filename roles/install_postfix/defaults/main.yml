@@ -1,0 +1,6 @@
+proxmox_hostname: "earth.sol.milkyway"
+
+smtp_email: "thomaszimmerman93@gmail.com"
+smtp_port: 587
+smtp_server: "smtp.gmail.com"
+smtp_tls_enabled: "yes"

@@ -1,0 +1,29 @@
+- name: Upgrade the system
+  apt:
+    upgrade: yes
+
+- name: Install base packages
+  apt:
+    pkg:
+      - bash-completion
+      - bmon
+      - dnsutils
+      - hdparm
+      - htop
+      - lsof
+      - net-tools
+      - tree
+      - vim
+      - wget
+      - sysstat
+      - iotop
+      - lm-sensors
+
+- name: Detecting system hardware sensors
+  command: sensors-detect --auto
+
+- name: Restarting lm-sensors
+  systemd:
+    name: lm-sensors
+    state: restarted
+    enabled: yes  

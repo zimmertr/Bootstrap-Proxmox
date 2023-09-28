@@ -1,0 +1,25 @@
+- name: Install Postfix
+  apt:
+    pkg:
+      - libsasl2-modules
+      - mailutils
+
+- name: Generate sasl_password file
+  template:
+    src: sasl_password.j2
+    dest: /etc/postfix/sasl/sasl_passwd
+    mode: 0600
+
+- name: Generate the Postfix config
+  template:
+    src: postfix_config.j2
+    dest: /etc/postfix/main.cf
+    mode: 0600
+
+- name: Generate the password database file
+  command: postmap hash:/etc/postfix/sasl/sasl_passwd
+
+- name: Restart postfix
+  systemd:
+    state: restarted
+    name: postfix

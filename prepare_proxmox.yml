@@ -1,0 +1,28 @@
+- hosts: proxmox_servers
+  vars_prompt:
+    - name: password
+      prompt: "Enter a password for the Terraform user"
+      private: true
+      
+    - name: smtp_password
+      prompt: "Enter the SMTP password"
+      private: true
+
+  tasks:
+    - include_role:
+        name: install_base_packages
+
+    - include_role:
+        name: install_postfix
+
+    - include_role:
+        name: install_sanoid  
+
+    - include_role:
+        name: install_unattended_upgrades  
+
+    - include_role:
+        name: configure_zed 
+         
+    - include_role:
+        name: configure_terraform_user

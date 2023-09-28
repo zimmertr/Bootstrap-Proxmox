@@ -1,0 +1,20 @@
+- name: Install Sanoid
+  apt:
+    pkg:
+      - sanoid
+
+- name: Creating a Sanoid config directory
+  file:
+    path: /etc/sanoid
+    state: directory
+
+- name: Generate the Sanoid configuration file
+  copy:
+    src: "sanoid.conf"
+    dest: "/etc/sanoid/sanoid.conf"
+
+- name: Enable Systemd unit for Sanoid
+  systemd:
+    enabled: yes
+    state: started
+    name: sanoid.timer

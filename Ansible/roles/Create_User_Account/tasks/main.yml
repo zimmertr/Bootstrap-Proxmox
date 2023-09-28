@@ -1,6 +1,0 @@
----
-- import_tasks: configure_sudo.yml
-
-- import_tasks: create_user_account.yml
-
-# - import_tasks: configure_sshd.yml
