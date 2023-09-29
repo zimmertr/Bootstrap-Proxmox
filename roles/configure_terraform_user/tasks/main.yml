@@ -33,7 +33,7 @@
   ignore_errors: true
   
 - name: Create a new API Token
-  shell: "pveum user token add {{ TERRAFORM_USER }} {{ TERRAFORM_ROLE_NAME }} --privsep 1 | awk '{print $4}' | grep -"
+  shell: "pveum user token add {{ TERRAFORM_USER }} {{ TERRAFORM_ROLE_NAME }} --privsep 0 | awk '{print $4}' | grep -"
   register: apiToken
   when: TOKEN_EXISTS_STATUS.rc == 1
 
@@ -43,6 +43,6 @@
   when: TOKEN_EXISTS_STATUS.rc == 1
   
 - name: Modify the existing token
-  shell: "pveum user token modify {{ TERRAFORM_USER }} {{ TERRAFORM_ROLE_NAME }} --privsep 1"
+  shell: "pveum user token modify {{ TERRAFORM_USER }} {{ TERRAFORM_ROLE_NAME }} --privsep 0"
   register: apiToken
   when: TOKEN_EXISTS_STATUS.rc == 0
