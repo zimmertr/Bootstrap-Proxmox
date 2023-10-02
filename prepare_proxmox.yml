@@ -16,13 +16,13 @@
         name: install_postfix
 
     - include_role:
-        name: install_sanoid  
+        name: install_sanoid
 
     - include_role:
-        name: install_unattended_upgrades  
+        name: install_unattended_upgrades
 
     - include_role:
-        name: configure_zed 
+        name: configure_zed
          
     - include_role:
         name: configure_terraform_user
