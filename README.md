@@ -12,7 +12,7 @@ This Ansible project contains a few roles that apply common configuration change
 | ----------------------------- | ------------------------------------------------------------ |
 | `configure_zed`               | Configure ZED and install Systemd units to enable automatic zpool scrubbing |
 | `create_terraform_user`       | Create (or modify) a user, role, and API Token for use with the BPG Terraform Provider |
-|`enable_iommu`|Configure GRUB and enable the kernel modules required for enabling IOMMU|
+| `enable_iommu`                |Configure GRUB and enable the kernel modules required for enabling IOMMU |
 | `install_base_packages`       | Install a handful of packages I typicall use on a base system |
 | `install_postfix`             | Configure Postfix to send email notifications through `smtp.gmail.com` |
 | `install_sanoid`              | Configure Sanoid to automatically create Zpool snapshots     |
