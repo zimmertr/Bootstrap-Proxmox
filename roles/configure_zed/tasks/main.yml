@@ -2,7 +2,7 @@
   replace:
     path: /etc/zfs/zed.d/zed.rc
     regexp: 'ZED_EMAIL_ADDR=.*'
-    replace: 'ZED_EMAIL_ADDR="{{ ZED_EMAIL_ADDRESS }}"'
+    replace: 'ZED_EMAIL_ADDR="{{ zed_email_address }}"'
 
 - name: Configuring ZED to send notifications regardless of drive health
   replace:
@@ -29,4 +29,4 @@
     name: zfs-scrub@{{ item }}.timer
     enabled: yes
   with_items:
-    - "{{ ZPOOL_LIST.split(',') }}"
+    - "{{ zpool_list.split(',') }}"

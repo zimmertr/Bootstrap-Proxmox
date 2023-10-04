@@ -1,3 +1,10 @@
+- fail:
+    msg: "Required environment variable is not set: SMTP_PASSWORD"
+  when: lookup('env', 'SMTP_PASSWORD', default='') == ''
+
+- set_fact:
+    smtp_password: "{{ lookup('env', 'SMTP_PASSWORD') }}"
+
 - name: Install Postfix
   apt:
     pkg:
