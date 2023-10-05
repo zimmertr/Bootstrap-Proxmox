@@ -1,0 +1,55 @@
+- fail:
+    msg: "Required environment variable is not set: TERRAFORM_USER_PASSWORD"
+  when: lookup('env', 'TERRAFORM_USER_PASSWORD', default='') == ''
+
+- set_fact:
+    terraform_user_password: "{{ lookup('env', 'TERRAFORM_USER_PASSWORD') }}"
+
+- name: Validate role already exists
+  shell: "pveum role list | grep {{ terraform_role_name }}"
+  register: ROLE_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new role
+  command: "pveum role add {{ terraform_role_name }} --privs '{{ terraform_role_privileges | join(' ') }}'"
+  when: ROLE_EXISTS_STATUS.rc == 1
+
+- name: Modify the existing role
+  command: "pveum role modify {{ terraform_role_name }} --privs '{{ terraform_role_privileges | join(' ') }}'"
+  when: ROLE_EXISTS_STATUS.rc == 0
+
+- name: Validate user already exists
+  shell: "pveum user list | grep {{ terraform_user }}"
+  register: USER_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new user
+  command: "pveum user add {{ terraform_user }} --password {{ terraform_user_password }}"
+  when: USER_EXISTS_STATUS.rc == 1
+
+- name: Modify the existing user
+  command: "pveum passwd {{ terraform_user }} --password {{ terraform_user_password }}"
+  when: USER_EXISTS_STATUS.rc == 0
+
+- name: Add user to role
+  command: "pveum aclmod / -user {{ terraform_user }} -role {{ terraform_role_name }}"
+
+- name: Validate api token already exists
+  shell: "pveum user token list {{ terraform_user }} | grep {{ terraform_role_name}}"
+  register: TOKEN_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new API Token
+  shell: "pveum user token add {{ terraform_user }} {{ terraform_role_name }} --privsep 0 | awk '{print $4}' | grep -"
+  register: apiToken
+  when: TOKEN_EXISTS_STATUS.rc == 1
+
+- name: Echo the token
+  debug:
+    msg: "export PROXMOX_VE_API_TOKEN='{{ terraform_user }}!{{ terraform_role_name }}={{ apiToken.stdout }}'"
+  when: TOKEN_EXISTS_STATUS.rc == 1
+
+- name: Modify the existing token
+  shell: "pveum user token modify {{ terraform_user }} {{ terraform_role_name }} --privsep 0"
+  register: apiToken
+  when: TOKEN_EXISTS_STATUS.rc == 0

@@ -1,0 +1,5 @@
+grub_cmdline_args: "quiet intel_iommu=on iommu=pt"
+kernel_modules:
+  - vfio
+  - vfio_iommu_type1
+  - vfio_pci

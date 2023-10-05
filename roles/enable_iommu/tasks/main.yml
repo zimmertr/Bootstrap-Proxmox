@@ -1,0 +1,13 @@
+- name: Configure GRUB to use IOMMU
+  replace:
+    path: /etc/default/grub
+    regexp: 'GRUB_CMDLINE_LINUX=".*"'
+    replace: 'GRUB_CMDLINE_LINUX="{{ grub_cmdline_args }}"'
+  notify: Update GRUB config
+
+- name: Enable VFIO Kernel Modules
+  modprobe:
+    name: "{{ item }}"
+    persistent: present
+  with_items: "{{ kernel_modules }}"
+  notify: Update initramfs

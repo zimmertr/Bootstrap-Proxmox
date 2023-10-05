@@ -1,2 +1,2 @@
-ZED_EMAIL_ADDRESS: "tj@tjzimmerman.com"
-ZPOOL_LIST: "DataPool,FlashPool"
+zed_email_address: "tj@tjzimmerman.com"
+zpool_list: "DataPool,FlashPool"

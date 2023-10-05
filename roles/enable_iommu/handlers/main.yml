@@ -1,0 +1,5 @@
+- name: Update GRUB config
+  command: update-grub
+
+- name: Update initramfs
+  command: update-initramfs -u -k all

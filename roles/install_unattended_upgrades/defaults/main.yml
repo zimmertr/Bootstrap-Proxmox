@@ -1,3 +1,3 @@
 email_address: "tj@tjzimmerman.com"
-email_when: "on-change"
+email_when: "only-on-error"
 automatic_reboot_time: "04:00"
