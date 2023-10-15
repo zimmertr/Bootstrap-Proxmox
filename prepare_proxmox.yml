@@ -55,3 +55,11 @@
             - enable_iommu
       tags:
         - enable_iommu
+
+    - include_role:
+        name: install_nfs_server
+        apply:
+          tags:
+            - install_nfs_server
+      tags:
+        - install_nfs_server

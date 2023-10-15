@@ -1,0 +1,10 @@
+- name: Install NFS Server
+  apt:
+    pkg: nfs-kernel-server
+
+- name: Generate /etc/exports
+  template:
+    src: exports.j2
+    dest: /etc/exports
+    mode: 0644
+  notify: Restart NFS Server
