@@ -11,7 +11,7 @@ This Ansible project contains a few roles that apply common configuration change
 | Role                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
 | `configure_zed`               | Configure ZED and install Systemd units to enable automatic zpool scrubbing |
-| `create_terraform_user`       | Create (or modify) a user, role, and API Token for use with the BPG Terraform Provider |
+| `create_user`                 | Create (or modify) a user, role, and API Token |
 | `enable_iommu`                | Configure GRUB and enable the kernel modules required for enabling IOMMU |
 | `install_base_packages`       | Install a handful of packages I typically use on a base system |
 | `install_nfs_server`          | Install NFS Kernel Server and Configure `/etc/exports`       |
@@ -26,4 +26,4 @@ This Ansible project contains a few roles that apply common configuration change
 1. Configure any varibles as per your needs.
 2. Configure the inventory file according to your needs.
 3. Run the Ansible Playbook: `ansible-playbook -i inventory.yml prepare_proxmox.yml`
-   * If you only want to run a specific role, pass in the name of the role as a tag. For example: `--tags create_terraform_user`
+   * If you only want to run a specific role, pass in the name of the role as a tag. For example: `--tags create_user`
