@@ -10,8 +10,9 @@ This Ansible project contains a few roles that apply common configuration change
 
 | Role                          | Description                                                  |
 | ----------------------------- | ------------------------------------------------------------ |
+| `configure_cluster`           | Create a single-node Proxmox cluster                         |
 | `configure_zed`               | Configure ZED and install Systemd units to enable automatic zpool scrubbing |
-| `create_user`                 | Create (or modify) a user, role, and API Token |
+| `create_user`                 | Create (or modify) a user, role, and API Token               |
 | `enable_iommu`                | Configure GRUB and enable the kernel modules required for enabling IOMMU |
 | `install_base_packages`       | Install a handful of packages I typically use on a base system |
 | `install_nfs_server`          | Install NFS Kernel Server and Configure `/etc/exports`       |
