@@ -1,0 +1,38 @@
+users:
+  kubernetes_csi:
+    user_name: "kubernetes_csi@pve"
+    role_name: "kubernetes_csi"
+    role_privileges:
+      - Datastore.Allocate
+      - Datastore.AllocateSpace
+      - Datastore.Audit
+      - VM.Audit
+      - VM.Config.Disk
+  terraform:
+    user_name: "terraform@pve"
+    role_name: "terraform"
+    role_privileges:
+      - Datastore.Allocate
+      - Datastore.AllocateSpace
+      - Datastore.AllocateTemplate
+      - Datastore.Audit
+      - Pool.Allocate
+      - Pool.Audit
+      - SDN.Use
+      - Sys.Audit
+      - Sys.Console
+      - Sys.Modify
+      - VM.Allocate
+      - VM.Audit
+      - VM.Clone
+      - VM.Config.CDROM
+      - VM.Config.Cloudinit
+      - VM.Config.CPU
+      - VM.Config.Disk
+      - VM.Config.HWType
+      - VM.Config.Memory
+      - VM.Config.Network
+      - VM.Config.Options
+      - VM.Migrate
+      - VM.Monitor
+      - VM.PowerMgmt

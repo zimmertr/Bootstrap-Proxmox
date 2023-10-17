@@ -1,0 +1,5 @@
+- name: Creating the Proxmox cluster
+  command: "pvecm create {{ cluster_name }}"
+  ignore_errors: yes
+  failed_when: "'255' not in result.stderr"
+  register: result

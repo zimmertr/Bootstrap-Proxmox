@@ -1,0 +1,44 @@
+- name: Validate role already exists
+  shell: "pveum role list | grep {{ item.value.role_name }}"
+  register: ROLE_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new role
+  command: "pveum role add {{ item.value.role_name }} --privs '{{ item.value.role_privileges | join(' ') }}'"
+  when: ROLE_EXISTS_STATUS.rc == 1
+
+- name: Modify the existing role
+  command: "pveum role modify {{ item.value.role_name }} --privs '{{ item.value.role_privileges | join(' ') }}'"
+  when: ROLE_EXISTS_STATUS.rc == 0
+
+- name: Validate user already exists
+  shell: "pveum user list | grep {{ item.value.user_name }}"
+  register: USER_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new user
+  command: "pveum user add {{ item.value.user_name }}"
+  when: USER_EXISTS_STATUS.rc == 1
+
+- name: Add user to role
+  command: "pveum aclmod / -user {{ item.value.user_name }} -role {{ item.value.role_name }}"
+
+- name: Validate API token already exists
+  shell: "pveum user token list {{ item.value.user_name }} | grep {{ item.value.role_name }}"
+  register: TOKEN_EXISTS_STATUS
+  ignore_errors: true
+
+- name: Create a new API Token
+  shell: "pveum user token add {{ item.value.user_name }} {{ item.value.role_name }} --privsep 0 | awk '{print $4}' | grep -"
+  register: apiToken
+  when: TOKEN_EXISTS_STATUS.rc == 1
+
+- name: Accumulate the token
+  set_fact:
+    tokens_msg: "{{ tokens_msg | default([]) + [ item.value.user_name ~ '!' ~ item.value.role_name ~ '=' ~ apiToken.stdout ] }}"
+  when: TOKEN_EXISTS_STATUS.rc == 1
+
+- name: Modify the existing token
+  shell: "pveum user token modify {{ item.value.user_name }} {{ item.value.role_name }} --privsep 0"
+  register: apiToken
+  when: TOKEN_EXISTS_STATUS.rc == 0

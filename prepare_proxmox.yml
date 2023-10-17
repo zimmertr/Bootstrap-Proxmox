@@ -9,12 +9,12 @@
         - install_base_packages
 
     - include_role:
-        name: create_terraform_user
+        name: create_user
         apply:
           tags:
-            - create_terraform_user
+            - create_user
       tags:
-        - create_terraform_user
+        - create_user
 
     - include_role:
         name: install_postfix
@@ -63,3 +63,11 @@
             - install_nfs_server
       tags:
         - install_nfs_server
+
+    - include_role:
+        name: configure_cluster
+        apply:
+          tags:
+            - configure_cluster
+      tags:
+        - configure_cluster

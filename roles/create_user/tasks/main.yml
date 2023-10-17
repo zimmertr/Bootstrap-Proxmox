@@ -1,0 +1,6 @@
+- include_tasks: create_user.yml
+  with_dict: "{{ users }}"
+
+- name: Echo the tokens
+  debug:
+    msg: "{{ tokens_msg }}"
