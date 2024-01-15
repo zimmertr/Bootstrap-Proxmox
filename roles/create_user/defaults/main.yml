@@ -4,6 +4,7 @@ users:
     role_name: "heimdall"
     role_privileges:
       - Sys.Audit
+      - VM.Audit
   kubernetes_csi:
     user_name: "kubernetes_csi@pve"
     role_name: "kubernetes_csi"
