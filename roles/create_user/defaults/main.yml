@@ -1,4 +1,9 @@
 users:
+  heimdall:
+    user_name: "heimdall@pve"
+    role_name: "heimdall"
+    role_privileges:
+      - Sys.Audit
   kubernetes_csi:
     user_name: "kubernetes_csi@pve"
     role_name: "kubernetes_csi"
