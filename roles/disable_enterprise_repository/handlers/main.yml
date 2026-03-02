@@ -1,0 +1,12 @@
+- name: Restart pve web services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: yes
+  loop:
+    - pveproxy
+    - pvedaemon
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes

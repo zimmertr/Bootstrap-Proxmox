@@ -1,0 +1,6 @@
+- name: Enable fancontrol service
+  ansible.builtin.systemd:
+    name: fancontrol
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
