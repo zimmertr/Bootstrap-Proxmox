@@ -1,0 +1,35 @@
+- name: Gather currently imported ZFS pools
+  become: true
+  command: "zpool list -H -o name"
+  register: zpool_list
+  changed_when: false
+
+- name: Import missing ZFS pools
+  become: true
+  command: "zpool import -f {{ item.name }}"
+  loop: "{{ zfs_pools }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: "item.name not in zpool_list.stdout_lines"
+
+- name: Mount all ZFS filesystems
+  become: true
+  command: "zfs mount -a"
+  changed_when: false
+
+- name: Gather existing Proxmox storage
+  command: "pvesm status"
+  register: existing_storage
+  changed_when: false
+  failed_when: false
+
+- name: Ensure ZFS pools are added as Proxmox storage
+  ansible.builtin.command: >
+    pvesm add zfspool {{ item.name }}
+      --pool {{ item.name }}
+      --content {{ item.content | join(',') }}
+      --nodes {{ item.node }}
+  loop: "{{ zfs_pools }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: "item.name not in existing_storage.stdout"

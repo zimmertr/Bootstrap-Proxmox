@@ -1,0 +1,12 @@
+zfs_pools:
+  - name: FlashPool
+    node: earth
+    content:
+      - images
+      - rootdir
+      - backup
+  - name: DataPool
+    node: earth
+    content:
+      - images
+      - backup

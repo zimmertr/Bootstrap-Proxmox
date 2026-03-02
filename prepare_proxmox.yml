@@ -1,12 +1,28 @@
 - hosts: proxmox_servers
   tasks:
     - include_role:
+        name: disable_enterprise_repository
+        apply:
+          tags:
+            - disable_enterprise_repository
+      tags:
+        - disable_enterprise_repository
+
+    - include_role:
         name: install_base_packages
         apply:
           tags:
             - install_base_packages
       tags:
         - install_base_packages
+
+    - include_role:
+        name: install_fancontrol_tool
+        apply:
+          tags:
+            - install_fancontrol_tool
+      tags:
+        - install_fancontrol_tool
 
     - include_role:
         name: create_user
@@ -71,3 +87,11 @@
             - configure_cluster
       tags:
         - configure_cluster
+
+    - include_role:
+        name: import_zfs_pool
+        apply:
+          tags:
+            - import_zfs_pool
+      tags:
+        - import_zfs_pool

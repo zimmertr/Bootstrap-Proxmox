@@ -1,0 +1,32 @@
+- name: Disable Proxmox enterprise repo files
+  ansible.builtin.command:
+    cmd: mv /etc/apt/sources.list.d/{{ item }} /etc/apt/sources.list.d/{{ item }}.disabled
+  args:
+    creates: /etc/apt/sources.list.d/{{ item }}.disabled
+  loop:
+    - pve-enterprise.sources
+    - ceph.sources
+  notify: restart pve web services
+  ignore_errors: yes
+
+- name: Ensure Proxmox no-subscription repo exists
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/proxmox.sources
+    mode: "0644"
+    content: |
+      Types: deb
+      URIs: http://download.proxmox.com/debian/pve
+      Suites: trixie
+      Components: pve-no-subscription
+      Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+  notify: Update apt cache
+
+- name: Remove subscription check files to disable banner
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/apt/apt.conf.d/99pve-enterprise
+    - /etc/apt/apt.conf.d/pve-enterprise.conf
+  notify: Restart pve web services
+  ignore_errors: yes

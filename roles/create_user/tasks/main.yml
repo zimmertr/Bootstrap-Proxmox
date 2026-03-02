@@ -1,3 +1,7 @@
+- name: Initialize tokens_msg fact
+  set_fact:
+    tokens_msg: []
+
 - include_tasks: create_user.yml
   with_dict: "{{ users }}"
 

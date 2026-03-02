@@ -1,0 +1,21 @@
+- name: Ensure required packages are installed
+  ansible.builtin.apt:
+    name:
+      - ipmitool
+      - lm-sensors
+      - jq
+    state: present
+    update_cache: yes
+
+- name: Download fancontrol script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/zimmertr/Supermicro-X10-Fancontrol/main/fancontrol
+    dest: /usr/bin/fancontrol
+    mode: '0755'
+
+- name: Download fancontrol systemd service
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/zimmertr/Supermicro-X10-Fancontrol/main/fancontrol.service
+    dest: /etc/systemd/system/fancontrol.service
+    mode: '0644'
+  notify: Enable fancontrol service

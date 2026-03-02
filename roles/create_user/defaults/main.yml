@@ -40,5 +40,4 @@ users:
       - VM.Config.Network
       - VM.Config.Options
       - VM.Migrate
-      - VM.Monitor
       - VM.PowerMgmt
