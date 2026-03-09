@@ -9,18 +9,6 @@
   notify: restart pve web services
   ignore_errors: yes
 
-- name: Ensure Proxmox no-subscription repo exists
-  ansible.builtin.copy:
-    dest: /etc/apt/sources.list.d/proxmox.sources
-    mode: "0644"
-    content: |
-      Types: deb
-      URIs: http://download.proxmox.com/debian/pve
-      Suites: trixie
-      Components: pve-no-subscription
-      Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
-  notify: Update apt cache
-
 - name: Remove subscription check files to disable banner
   ansible.builtin.file:
     path: "{{ item }}"
