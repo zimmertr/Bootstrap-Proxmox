@@ -12,9 +12,7 @@ This Ansible project contains a few roles that apply common configuration change
 | ----------------------------- | ------------------------------------------------------------ |
 | `configure_cluster`           | Create a single-node Proxmox cluster                         |
 | `configure_zed`               | Configure ZED and install Systemd units to enable automatic zpool scrubbing |
-| `create_user`                 | Create (or modify) a user, role, and API Token               |
 | `disable_enterprise_repository` | Switch to no-subscription Apt repo & disable login banner |
-| `enable_iommu`                | Configure GRUB and enable the kernel modules required for enabling IOMMU |
 | `import_zfs_pool`             | Import and mount a list of ZFS Pools if they are not already imported |
 | `install_base_packages`       | Install a handful of packages I typically use on a base system |
 | `install_fancontrol_tool`     | Install Supermicro Fan Control tool |
@@ -23,6 +21,8 @@ This Ansible project contains a few roles that apply common configuration change
 | `install_sanoid`              | Configure Sanoid to automatically create Zpool snapshots     |
 | `install_unattended_upgrades` | Configure Unattended Upgrades to automatically install new packages |
 
+Proxmox users and API Tokens are created by the `bootstrap/` Terraform root in [TJs-Kubernetes-Service](https://github.com/zimmertr/TJs-Kubernetes-Service/tree/main/bootstrap).
+
 <hr>
 
 ## Instructions
@@ -30,5 +30,5 @@ This Ansible project contains a few roles that apply common configuration change
 1. Configure any varibles as per your needs.
 2. Configure the inventory file according to your needs.
 3. Run the Ansible Playbook: `ansible-playbook -i inventory.yml prepare_proxmox.yml`
-   * If you only want to run a specific role, pass in the name of the role as a tag. For example: `--tags create_user`
+   * If you only want to run a specific role, pass in the name of the role as a tag. For example: `--tags configure_zed`
    * If you are running `install_postfix`, don't forget to export `SMTP_PASSWORD`.

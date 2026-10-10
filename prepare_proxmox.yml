@@ -25,14 +25,6 @@
         - install_fancontrol_tool
 
     - include_role:
-        name: create_user
-        apply:
-          tags:
-            - create_user
-      tags:
-        - create_user
-
-    - include_role:
         name: install_postfix
         apply:
           tags:
@@ -63,14 +55,6 @@
             - configure_zed
       tags:
         - configure_zed
-
-    - include_role:
-        name: enable_iommu
-        apply:
-          tags:
-            - enable_iommu
-      tags:
-        - enable_iommu
 
     - include_role:
         name: install_nfs_server
