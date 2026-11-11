@@ -10,7 +10,7 @@ This repo took a trimmed set of the files a new project starts with (zimmertr/yg
 - The README is TJ's: keep it accurate and in his voice, and never restructure it. A new role gets a row in its table.
 - No secrets in the repo. `install_postfix` reads `SMTP_PASSWORD` from the environment.
 - `install_fancontrol_tool` downloads from zimmertr/Supermicro-X10-Fancontrol's `main`.
-- CI is zimmertr/yggdrasil's `pr-title` and `lint` modules, pinned by commit SHA with the version beside it. Dependabot bumps the pin, and a patch or minor merges itself after three days. The PR title is `type(scope): summary`.
+- CI is zimmertr/yggdrasil's `pr-title` and `lint` modules, pinned by commit SHA with the version beside it. Renovate bumps the pin, and a patch or minor merges itself. The PR title is `type(scope): summary`.
 
 ## Issues
 

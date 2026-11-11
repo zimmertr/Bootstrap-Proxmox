@@ -2,7 +2,7 @@ name: PR Title
 
 # The PR title becomes the squash commit's title. yggdrasil's pr-title module
 # refuses a title that isn't `type(scope): summary`, so the history reads the
-# same as every other repo's. Dependabot's titles (`chore(deps): ...`) already
+# same as every other repo's. Renovate's titles (`chore(deps): ...`) already
 # pass.
 #
 # `edited` is in the list so a title fix reruns the check, and `synchronize`
